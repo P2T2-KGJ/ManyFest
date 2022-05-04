@@ -18,7 +18,7 @@ Collection.hasMany (Item, {
 })
 
 Item.belongsTo (Collection, {
-    foreignKey: 'user_id',
+    foreignKey: 'collection_id',
     unique: false,
 })
 
