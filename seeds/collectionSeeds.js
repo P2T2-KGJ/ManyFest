@@ -22,6 +22,6 @@ const collectionData = [
  
 ];
 
-const seedCollections = () => Category.bulkCreate(collectionData);
+const seedCollections = () => Collection.bulkCreate(collectionData);
 
 module.exports = seedCollections;

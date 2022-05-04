@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 
 class Collection extends Model {}
 
-Comment.init(
+Collection.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -21,6 +21,7 @@ Comment.init(
         },
         public: {
             type: DataTypes.BOOLEAN,
+            allowNull: false,
         },
         user_id: {
             type: DataTypes.INTEGER,
