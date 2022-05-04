@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Collections extends Model {}
+class Collection extends Model {}
 
 Comment.init(
     {
@@ -25,7 +25,7 @@ Comment.init(
         user_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'user',
+                model: 'users',
                 key: 'id'
             }
         },
@@ -33,10 +33,9 @@ Comment.init(
     {
         sequelize,
         timestamps: true,
-        freezeTableName: true,
         underscored: true,
-        modelName: 'comment',
+        modelName: 'collections',
     }
 );
 
-module.exports = Collections;
+module.exports = Collection;

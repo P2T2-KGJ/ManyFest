@@ -1,3 +1,3 @@
-const Collections = require('./collections');
+const Collection = require('./collections');
 
-module.exports = { Collections }
+module.exports = { Collection }
