@@ -83,7 +83,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
         // to render the dashboard
         const collection = Data.map((item) => items.get({ plain: true }));
 
-        res.render("dashboard", {
+        res.render("collection", {
             collection,
         });
     } catch (err) {
