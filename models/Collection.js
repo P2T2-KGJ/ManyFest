@@ -19,8 +19,9 @@ Collection.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        public: {
+        private: {
             type: DataTypes.BOOLEAN,
+            defaultValue: false,
             allowNull: false,
         },
         user_id: {
