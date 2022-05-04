@@ -91,10 +91,11 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
     }
 });
 
-// find item by id
-// this should have the option to edit the item
+// item by id
+// this page should have the option to edit the item
 // do we want to handle that on-page client side, or render a new page for it
 router.get("/:username/items/:id", withAuth, async (req, res) => {
+    // needs the same verification/authorization as the dashboard & collections pages
     try {
         const itemData = await Item.findByPk(req.params.id);
         // when we figure out images, that will need to be included
@@ -113,6 +114,7 @@ router.get("/:username/items/:id", withAuth, async (req, res) => {
 
 // about us page
 // hard coded information?
+// could also be a static file
 // something fun here would be nice
 router.get("/about", async (req, res) => {
     try {
