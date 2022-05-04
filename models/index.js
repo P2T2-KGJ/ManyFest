@@ -1,6 +1,6 @@
-const Collection = require('./collections');
-const User = require('./users');
-const Item = require('./items');
+const Collection = require('./collection');
+const User = require('./user');
+const Item = require('./item');
 
 User.hasMany (Collection, {
     foreignKey: 'user_id',
