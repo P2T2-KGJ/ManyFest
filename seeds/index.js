@@ -1,14 +1,21 @@
-const sequelize = require('../config/connection');
+const sequelize = require("../config/connection");
+const seedUsers = require("./userData");
+const seedCollections = require("./collectionData");
+const seedItems = require("./itemData");
 
-const seedCollections = require('./collectionSeeds');
 
 const seedDatabase = async () => {
     await sequelize.sync({ force: true });
-  
+
+    await seedUsers();
     await seedCollections();
-    
+    await seedItems();
+
     process.exit(0);
-  
-  };
-  
-  seedDatabase();
+};
+
+seedDatabase();
+
+
+
+
