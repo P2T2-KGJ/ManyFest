@@ -1,5 +1,9 @@
 const router = require('express').Router();
-const { User, Collection, Item } = require('../../models');
+const { Collection, Item } = require('../../models');
+
+// from kit: I think these first two actually need to be on a page route
+// api routes for this project will be creation/edit/deletion
+// get routes should all be for page rendering
 
 router.get('/', async (req, res) => {
     // find all collections
