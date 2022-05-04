@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     // including all associated items
     try {
       const collectionData = await Collection.findAll({
-        include: [{ model: Item }]
+        // include: [{ model: Item }]
       });
       res.status(200).json(collectionData);
     } catch (err) {
@@ -82,3 +82,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+module.exports = router;
