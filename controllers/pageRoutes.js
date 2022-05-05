@@ -22,9 +22,6 @@ router.get("/", async (req, res) => {
         const itemData = recentItemData.map((item) =>
         item.get({ plain: true })
         );
-
-        
-        console.log(itemData);
         
         if (!itemData) {
             // what do we do if nothing satisfies this condition?

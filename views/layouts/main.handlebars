@@ -7,6 +7,14 @@
     <title></title>
 </head>
 <body>
+     <li class="nav-item">
+              {{#unless logged_in}}
+              <a class="nav-link" id="logout" href="./login">Login</a>
+              {{/unless}}
+              {{#if logged_in}}
+              <a class="nav-link" id="logout">Logout</a>
+              {{/if}}
+            </li>
     {{{body}}}
 </body>
 </html>
