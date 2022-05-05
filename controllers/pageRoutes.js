@@ -29,7 +29,9 @@ router.get("/", async (req, res) => {
         }
         else {
         res.render("homepage", { itemData,
-            loggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn,
+            sessID: req.session.sessID,
+            userName: req.session.userName
         });
         }
 
