@@ -4,18 +4,18 @@ const collectiondata = [
     {
         name: "Shirts",
         description: "A collection of my shirts",
-        user_id: "1",
+        user_id: 1,
     },
     {
         name: "Dog Pictures",
         description: "A collection of my favorite dog pictures",
         private: true,
-        user_id: "1",
+        user_id: 2,
     },
     {
         name: "Candles",
         description: "My different candles and their scents",
-        user_id: "1",
+        user_id: 1,
     },
 ]
 

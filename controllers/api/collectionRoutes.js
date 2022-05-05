@@ -5,38 +5,6 @@ const { Collection, Item } = require('../../models');
 // api routes for this project will be creation/edit/deletion
 // get routes should all be for page rendering
 
-router.get('/', async (req, res) => {
-    // find all collections
-    // including all associated items
-    try {
-      const collectionData = await Collection.findAll({
-        // include: [{ model: Item }]
-      });
-      res.status(200).json(collectionData);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-
-router.get('/:id', async (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
-  try {
-    const collectionData = await Collection.findByPk(req.params.id, {
-      include: [{ model: Item }]
-    });
-    
-    if (!collectionData) {
-      res.status(404).json({ message: 'No collection found with that id!' });
-      return;
-    }
-
-    res.status(200).json(collectionData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 router.post('/', async (req, res) => {
   // create a new category
   try {

@@ -7,6 +7,26 @@
     <title></title>
 </head>
 <body>
+    <ul>
+
+        <li class="nav-item">
+            {{#unless loggedIn}}
+            <a class="nav-link" id="logout" href="./login">Login</a>
+            {{/unless}}
+            {{#if loggedIn}}
+            <a class="nav-link" id="logout">Logout</a>
+            {{/if}}
+        </li>
+            {{#if loggedIn}}
+        <li>
+            <a class="nav-link" id="logout" href="./{{userName}}/dashboard">Many-Fest Collections</a>
+        </li>
+            {{/if}}
+    </ul>
     {{{body}}}
+
+    {{#if loggedIn}}
+        <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
 </html>
