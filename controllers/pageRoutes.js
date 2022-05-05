@@ -28,7 +28,8 @@ router.get("/", async (req, res) => {
             res.render("homepage");
         }
         else {
-        res.render("homepage", { itemData
+        res.render("homepage", { itemData,
+            loggedIn: req.session.loggedIn
         });
         }
 
@@ -42,7 +43,7 @@ router.get("/", async (req, res) => {
 // could make sign-up its own page
 // could handle both on same page via client-side script
 router.get("/login", (req, res) => {
-    if (req.session.logged_in) {
+    if (req.session.loggedIn) {
         // do we want to send people to the front page, or to their dashboard?
         res.redirect("/");
         return;

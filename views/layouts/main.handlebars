@@ -8,13 +8,17 @@
 </head>
 <body>
      <li class="nav-item">
-              {{#unless logged_in}}
+              {{#unless loggedIn}}
               <a class="nav-link" id="logout" href="./login">Login</a>
               {{/unless}}
-              {{#if logged_in}}
+              {{#if loggedIn}}
               <a class="nav-link" id="logout">Logout</a>
               {{/if}}
             </li>
     {{{body}}}
+
+    {{#if loggedIn}}
+        <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
 </html>
