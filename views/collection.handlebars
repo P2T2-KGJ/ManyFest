@@ -6,3 +6,11 @@
         
         could also give the option to delete items directly from this page, or could leave that to the item-details
         probably should have an option to delete the entire collection as well, with some sort of confirmation--}}
+
+<h1>{{collection.name}}</h1>
+
+{{#each collection.items}}
+<p>
+<a href = '../items/{{id}}'>{{name}}</a>
+</p>
+{{/each}}

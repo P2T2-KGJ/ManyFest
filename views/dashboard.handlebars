@@ -32,17 +32,19 @@
                 transition
                 focus:outline-none
                 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                aria-controls="collapseOne" href="/{{userName}}/collections/{{id}}"
+                aria-controls="collapseOne">
+                <li>
+                    <a class="nav-link" href="collections/{{id}}">{{name}}</a>
+                </li>
                 </button>
-                {{name}}
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample">
                 <div class="accordion-body py-4 px-5">
                 {{description}}
+                <br>
+                {{!-- {{> itemdetails}} --}}
                 </div>
             </div>
         </div>
         {{/each}}
-
-        <script>console.log('{{userName}}')</script>

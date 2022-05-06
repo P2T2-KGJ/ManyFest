@@ -14,7 +14,7 @@ Collection.belongsTo(User, {
 });
 
 Collection.hasMany(Item, {
-    foreignKey: "user_id",
+    foreignKey: "collection_id",
     onDelete: "CASCADE",
 });
 

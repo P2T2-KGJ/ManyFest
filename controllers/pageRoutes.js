@@ -80,17 +80,18 @@ router.get("/:username/dashboard", async (req, res) => {
             const collectionData = dbCollectionData.map((user) =>
             user.get({ plain: true })
             );
+            console.log(req.session.userName)
+            
             res.render('dashboard', {
                 collectionData,
                 loggedIn: req.session.loggedIn,
-                sessID: req.session.sessID,
                 userName: req.session.userName
             })
-            console.log(collectionData)
+
             
         
     } catch (err) {
-        // res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
+        res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
 });
 
@@ -106,22 +107,25 @@ router.get("/:username/collections/:id", async (req, res) => {
         const collectionData = await Collection.findByPk(req.params.id, {
             include: [
                 {
-                    model: Item,
-                    attributes: ["name"],
+                    model: Item
                 },
             ],
         });
         if (!collectionData) {
             res.status(404).sendFile(
                 path.join(__dirname, "../public", "404.html")
-            );
-        }
-        // to render the dashboard
-        const collection = Data.map((item) => items.get({ plain: true }));
-
+                );
+            }
+            
+            const collection = collectionData.get({ plain: true });
         res.render("collection", {
             collection,
+            loggedIn: req.session.loggedIn,
+            userName: req.session.userName
         });
+
+
+        console.log(collection.items[1].name);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -130,7 +134,7 @@ router.get("/:username/collections/:id", async (req, res) => {
 // item by id
 // this page should have the option to edit the item
 // do we want to handle that on-page client side, or render a new page for it
-router.get("/:username/items/:id", withAuth, async (req, res) => {
+router.get("/:username/items/:id", async (req, res) => {
     // needs the same verification/authorization as the dashboard & collections pages
     try {
         const itemData = await Item.findByPk(req.params.id);
@@ -141,8 +145,16 @@ router.get("/:username/items/:id", withAuth, async (req, res) => {
                 path.join(__dirname, "../public", "404.html")
             );
         }
+
+        const item = itemData.get({ plain: true });
+
+        console.log(item);
         // will this be a full page render, or handled client side?
-        res.render("item", itemData);
+        res.render("item", {
+            item,
+            loggedIn: req.session.loggedIn,
+            userName: req.session.userName
+        });
     } catch (err) {
         res.status(500).json(err);
     }
