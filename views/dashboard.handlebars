@@ -12,39 +12,27 @@
         this page would also be the place to update user information: email and password
         again, this could be handled on page, or via link to new page--}}
 
-        <h1>Hello World</h1>
+        
 
+<section class="overflow-hidden text-gray-700 ">
+  <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">My Collections</h2>
+  <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
+    <div class="flex flex-wrap -m-1 md:-m-2">
         {{#each collectionData}}
-            <div class="accordion-item bg-white border border-gray-200">
-            <h2 class="accordion-header mb-0" id="headingOne">
-                <button class="
-                accordion-button
-                relative
-                flex
-                items-center
-                w-full
-                py-4
-                px-5
-                text-base text-gray-800 text-left
-                bg-white
-                border-0
-                rounded-none
-                transition
-                focus:outline-none
-                " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                aria-controls="collapseOne">
-                <li>
-                    <a class="nav-link" href="collections/{{id}}">{{name}}</a>
-                </li>
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body py-4 px-5">
+        <div class="flex justify-center mx-2">
+          <div class="rounded-lg shadow-lg bg-white max-w-sm">
+            <a href="collections/{{id}}" data-mdb-ripple="true" data-mdb-ripple-color="light">
+              <img class="rounded-t-lg" src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt=""/>
+            </a>
+            <div class="p-6">
+              <h5 class="text-gray-900 text-xl font-medium mb-2">{{name}}</h5>
+              <p class="text-gray-700 text-base mb-4">
                 {{description}}
-                <br>
-                {{!-- {{> itemdetails}} --}}
-                </div>
+              </p>
             </div>
+          </div>
         </div>
         {{/each}}
+    </div>
+  </div>
+</section>

@@ -83,7 +83,7 @@ router.get("/:username/dashboard", async (req, res) => {
                     user_id: req.session.sessID,
                 },
                 include: [
-                    { model: Item }
+                    { model: User}
                 ]
             })
             
@@ -97,6 +97,8 @@ router.get("/:username/dashboard", async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 userName: req.session.userName
             })
+
+            console.log(collectionData)
 
             
         
