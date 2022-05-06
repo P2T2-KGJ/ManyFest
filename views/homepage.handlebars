@@ -1,53 +1,71 @@
-{{!-- landing page
-        
-        this page will have branding assets bigger than in other places
-        the carousel of recently added public items
-            -this should be handled by a partial
-        
-        probably also a big button on-page to encourage people to sign up or log in
-        not just in the nav bar
-        
-        --}}
-        <h1>Homepage</h1>
+<div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
+  <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    >
+    </button>
+    
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="1"
+      aria-label="Slide 2"
+    >
+    </button>
+    
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="2"
+      aria-label="Slide 3"
+    >
+    
+    </button>
+  </div>
+  <div class="carousel-inner relative w-full overflow-hidden">
+    
+    {{#each itemData}}
+    <div class="carousel-item active relative float-left w-full">
 
+    {{!-- Replace source with image source from collection. --}}
+      <img
+        src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
+        class="block w-full"
+        alt="..."
+      />
+      <div class="carousel-caption hidden md:block absolute text-center">
+        <h5 class="text-xl">{{name}} from collection: {{collection.name}}</h5>
+            <p class="mt-2">{{description}}</p>
+      </div>
+    </div>
+   {{/each}}
 
-        {{#each itemData}}
-         <div class="accordion-item bg-white border border-gray-200">
-            <h2 class="accordion-header mb-0" id="headingOne">
-                <button class="
-                accordion-button
-                relative
-                flex
-                items-center
-                w-full
-                py-4
-                px-5
-                text-base text-gray-800 text-left
-                bg-white
-                border-0
-                rounded-none
-                transition
-                focus:outline-none
-                " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                aria-controls="collapseOne">
-                {{name}} from collection: {{collection.name}}
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample">
-                <div class="accordion-body py-4 px-5">
-                {{description}}
-                <br>
-                {{#if price}}
-                <p>
-                {{price}}
-                </p>
-                {{else}}
-                <p>
-                No price provided.
-                </p>
-                {{/if}}
-                </div>
-            </div>
-        </div>
-        {{/each}}
+  </div>
+  
+  
+  <button
+    class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+
+  <button
+    class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
