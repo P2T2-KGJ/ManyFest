@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const path = require("path");
 const { Collection, Item, User } = require("../models");
-const { withAuth } = require("../utils/auth");
+const { withAuth, confirmUser } = require("../utils/auth");
 
 // routes for rendering the pages go here
 // depending on how many we have, may want to break these out into separate files
@@ -13,31 +13,37 @@ router.get("/", async (req, res) => {
     try {
         const recentItemData = await Item.findAll({
             include: [{ model: Collection }],
+            // I dont think we need to include collections here,
+            // we're just looking for the most recently added items
+
+            // do we want to make it so it's only from unique collections?
+
             // logic for getting the items we want goes here
             // will need to be updated once we figure out photos
-            order: [['id', 'DESC']],
+            order: [["id", "DESC"]],
             limit: 5,
+
+            // needs logic for private = false
         });
 
         const itemData = recentItemData.map((item) =>
-        item.get({ plain: true })
+            item.get({ plain: true })
         );
-        
+
         if (!itemData) {
             // what do we do if nothing satisfies this condition?
             res.render("homepage");
+        } else {
+            res.render("homepage", {
+                itemData,
+                loggedIn: req.session.loggedIn,
+                sessID: req.session.sessID,
+                userName: req.session.userName,
+            });
         }
-        else {
-        res.render("homepage", { itemData,
-            loggedIn: req.session.loggedIn,
-            sessID: req.session.sessID,
-            userName: req.session.userName
-        });
-        }
-
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
-      return;
+        return;
     }
 });
 
@@ -81,13 +87,22 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
 
 // render all items in a collection
 router.get("/:username/collections/:id", withAuth, async (req, res) => {
+    const userId = confirmUser(req.session, req.params.username);
+    if (userId == false) {
+        // if user doesnt match session, redirect to login
+        res.render("login")
+    }
+
     try {
         // this will need the same verification/authorization as the dashboard
         const collectionData = await Collection.findByPk(req.params.id, {
             include: [
                 {
                     model: Item,
-                    attributes: ["name"],
+                    attributes: [
+                        ["id", "itemId"],
+                        ["name", "itemName"],
+                    ],
                 },
             ],
         });
@@ -97,7 +112,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
             );
         }
         // to render the dashboard
-        const collection = Data.map((item) => items.get({ plain: true }));
+        const collection = collectionData.get({ plain: true });
 
         res.render("collection", {
             collection,
@@ -121,8 +136,10 @@ router.get("/:username/items/:id", withAuth, async (req, res) => {
                 path.join(__dirname, "../public", "404.html")
             );
         }
-        // will this be a full page render, or handled client side?
-        res.render("item", itemData);
+
+        const items =
+            // will this be a full page render, or handled client side?
+            res.render("item", items);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -140,36 +157,38 @@ router.get("/about", async (req, res) => {
     }
 });
 
-router.get('/:username/collections', async (req, res) => {
+router.get("/:username/collections", async (req, res) => {
     // find all collections
     // including all associated items
     try {
-      const collectionData = await Collection.findAll({
-        include: [{ model: Item }]
-      });
-      res.status(200).json(collectionData);
+        const collectionData = await Collection.findAll({
+            include: [{ model: Item }],
+        });
+        res.status(200).json(collectionData);
     } catch (err) {
-      res.status(500).json(err);
+        res.status(500).json(err);
     }
-  });
+});
 
-router.get('/:username/collections/:id', async (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Items
-  try {
-    const collectionData = await Collection.findByPk(req.params.id, {
-      include: [{ model: Item }]
-    });
-    
-    if (!collectionData) {
-      res.status(404).json({ message: 'No collection found with that id!' });
-      return;
+router.get("/:username/collections/:id", async (req, res) => {
+    // find one category by its `id` value
+    // be sure to include its associated Items
+    try {
+        const collectionData = await Collection.findByPk(req.params.id, {
+            include: [{ model: Item }],
+        });
+
+        if (!collectionData) {
+            res.status(404).json({
+                message: "No collection found with that id!",
+            });
+            return;
+        }
+
+        res.status(200).json(collectionData);
+    } catch (err) {
+        res.status(500).json(err);
     }
-
-    res.status(200).json(collectionData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
 });
 
 module.exports = router;
