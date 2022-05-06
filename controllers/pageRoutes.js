@@ -57,8 +57,7 @@ router.get("/login", (req, res) => {
 // button to create new collection
 // could be its own page, or could be handled client side with a modal
 // think about mobile-friendly here
-router.get("/:username/dashboard", withAuth, async (req, res) => {
-    try {
+router.get("/:username/dashboard", async (req, res) => {
         // username needs to be a valid user that is connected to the session
         // maybe this is middleware?
         // otherwise we can use a function to validate
@@ -68,9 +67,30 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
         // either way, we probably need to add a parameter to session to identify the user
 
         // then needs to get all collections by user id, no items
-        const collectionData = await Collection.findByPk(userId);
+        try {
+            const dbCollectionData = await Collection.findAll({
+                where: {
+                    user_id: req.session.sessID,
+                },
+                include: [
+                    { model: Item }
+                ]
+            })
+            
+            const collectionData = dbCollectionData.map((user) =>
+            user.get({ plain: true })
+            );
+            res.render('dashboard', {
+                collectionData,
+                loggedIn: req.session.loggedIn,
+                sessID: req.session.sessID,
+                userName: req.session.userName
+            })
+            console.log(collectionData)
+            
+        
     } catch (err) {
-        res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
+        // res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
 });
 
@@ -80,7 +100,7 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
 // consider mobile users
 
 // render all items in a collection
-router.get("/:username/collections/:id", withAuth, async (req, res) => {
+router.get("/:username/collections/:id", async (req, res) => {
     try {
         // this will need the same verification/authorization as the dashboard
         const collectionData = await Collection.findByPk(req.params.id, {
@@ -138,38 +158,6 @@ router.get("/about", async (req, res) => {
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
-});
-
-router.get('/:username/collections', async (req, res) => {
-    // find all collections
-    // including all associated items
-    try {
-      const collectionData = await Collection.findAll({
-        include: [{ model: Item }]
-      });
-      res.status(200).json(collectionData);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-
-router.get('/:username/collections/:id', async (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Items
-  try {
-    const collectionData = await Collection.findByPk(req.params.id, {
-      include: [{ model: Item }]
-    });
-    
-    if (!collectionData) {
-      res.status(404).json({ message: 'No collection found with that id!' });
-      return;
-    }
-
-    res.status(200).json(collectionData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
 });
 
 module.exports = router;
