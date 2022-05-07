@@ -12,6 +12,10 @@ Image.init(
         description: {
             type: DataTypes.STRING,
         },
+        link : {type: DataTypes.STRING,
+        },
+        AWS_key: {type: DataTypes.STRING,
+        },
         item_id: {
             type: DataTypes.INTEGER,
             references: {
