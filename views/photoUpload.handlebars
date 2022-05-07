@@ -1,16 +1,19 @@
-<form action="/stats" enctype="multipart/form-data" method="post">
+<form action="/api/images" enctype="multipart/form-data" method="post">
     <div class="form-group">
-        <input type="file" class="form-control-file" name="uploaded_file" />
         <input
+            id="image"
+            class="form-control-file"
+            type="file"
+            accept=".jpg,.jpeg,.png,.svg,.webp,image/*"
+            name="uploaded_image"
+        />
+        <input
+            id="image-name"
             type="text"
             class="form-control"
-            placeholder="Number of speakers"
-            name="nspeakers"
+            placeholder="Image description"
+            name="desc"
         />
-        <input
-            type="submit"
-            value="Get me the stats!"
-            class="btn btn-default"
-        />
+        <input type="submit" value="Submit" class="btn btn-default" />
     </div>
 </form>
