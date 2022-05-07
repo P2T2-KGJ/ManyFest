@@ -1,45 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
 </head>
+
+
 <body>
-    <ul>
 
-        <li class="nav-item"
-            <a class="nav-link" href="/">Homepage</a>
-        </li>
-
-        <br>
+  <!-- Navbar -->
+  <nav class="
+  relative
+  w-full
+  flex flex-wrap
+  items-center
+  justify-between
+  py-4
+  bg-gray-100
+  text-gray-500
+  hover:text-gray-700
+  focus:text-gray-700
+  shadow-lg
+  navbar navbar-expand-lg navbar-light
+  ">
+    <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
+      <button class="
+      navbar-toggler
+      text-gray-500
+      border-0
+      hover:shadow-none hover:no-underline
+      py-2
+      px-2.5
+      bg-transparent
+      focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline
+    " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="w-6" role="img"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path fill="currentColor"
+            d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
+          </path>
+        </svg>
+      </button>
+      <div class="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
+        <a class="
+        flex
+        items-center
+        text-gray-900
+        hover:text-gray-900
+        focus:text-gray-900
+        mt-2
+        lg:mt-0
+        mr-1
+      " href="#">
+          <!-- Navbar image -->
+          <img src="/images/Manyfest.png" style="height: 60px" alt="ManyFest"
+            loading="lazy" />
+        </a>
+        <!-- Left links -->
+        <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
+            <li class="nav-item p-2">
+                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/">Homepage</a>
+            </li>
 
             {{#unless loggedIn}}
-        <li class="nav-item">
-            <a class="nav-link" id = "login" href="/login">Login</a>
-        </li>
+            <li class="nav-item p-2">
+                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" id = "login" href="/login">Login</a>
+            </li>
+            <li class="nav-item p-2">
+                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" id = "login" href="/signup">Sign Up</a>
+            </li>
             {{/unless}}
 
-        <br>
-
             {{#if loggedIn}}
-        <li class="nav-item">
-            <a class="nav-link" id="logout">Logout</a>
-        </li>
-
-        <br>
-
-        <li>
-            <a class="nav-link" id="logout" href="/{{userName}}/dashboard">Many-Fest Collections</a>
-        </li>
+            <li class="nav-item p-2">
+                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/{{userName}}/dashboard">My Dashboard</a>
+            </li>
             {{/if}}
-        
-    </ul>
+            </ul>
+      </div>
+
+      <!-- Right elements -->
+      <div class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
+        {{#if loggedIn}}
+        <ul>
+            <li class="nav-item p-2">
+                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" id="logout">Logout</a>
+            </li>
+        </ul>
+        {{/if}}
+    </div>
+  </nav>
+  
+  <br>
+    
     {{{body}}}
 
-    {{#if loggedIn}}
-        <script src="/js/logout.js"></script>
-    {{/if}}
+  {{#if loggedIn}}
+      <script src="/js/logout.js"></script>
+  {{/if}}
+  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+  {{!-- <script src="/node_modules/"></script> --}}
 </body>
+
 </html>

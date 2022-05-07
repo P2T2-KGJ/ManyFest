@@ -53,6 +53,16 @@ router.get("/login", (req, res) => {
     res.render("login");
 });
 
+// register
+router.get("/signup", (req, res) => {
+    if (req.session.loggedIn) {
+        // do we want to send people to the front page, or to their dashboard?
+        res.redirect("/");
+        return;
+    }
+    res.render("signup");
+});
+
 // user dashboard - with collections rendered, no items
 // button to create new collection
 // could be its own page, or could be handled client side with a modal
@@ -73,7 +83,7 @@ router.get("/:username/dashboard", async (req, res) => {
                     user_id: req.session.sessID,
                 },
                 include: [
-                    { model: Item }
+                    { model: User}
                 ]
             })
             
@@ -87,6 +97,8 @@ router.get("/:username/dashboard", async (req, res) => {
                 loggedIn: req.session.loggedIn,
                 userName: req.session.userName
             })
+
+            console.log(collectionData)
 
             
         
