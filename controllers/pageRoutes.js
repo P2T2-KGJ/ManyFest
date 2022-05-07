@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const path = require("path");
+
 const { Collection, Item, User, Image } = require("../models");
-const { withAuth } = require("../utils/auth");
+const { withAuth, confirmUser } = require("../utils/auth");
+
 
 // routes for rendering the pages go here
 // depending on how many we have, may want to break these out into separate files
@@ -13,31 +15,37 @@ router.get("/", async (req, res) => {
     try {
         const recentItemData = await Item.findAll({
             include: [{ model: Collection }],
+            // I dont think we need to include collections here,
+            // we're just looking for the most recently added items
+
+            // do we want to make it so it's only from unique collections?
+
             // logic for getting the items we want goes here
             // will need to be updated once we figure out photos
-            order: [['id', 'DESC']],
+            order: [["id", "DESC"]],
             limit: 5,
+
+            // needs logic for private = false
         });
 
         const itemData = recentItemData.map((item) =>
-        item.get({ plain: true })
+            item.get({ plain: true })
         );
-        
+
         if (!itemData) {
             // what do we do if nothing satisfies this condition?
             res.render("homepage");
+        } else {
+            res.render("homepage", {
+                itemData,
+                loggedIn: req.session.loggedIn,
+                sessID: req.session.sessID,
+                userName: req.session.userName,
+            });
         }
-        else {
-        res.render("homepage", { itemData,
-            loggedIn: req.session.loggedIn,
-            sessID: req.session.sessID,
-            userName: req.session.userName
-        });
-        }
-
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
-      return;
+        return;
     }
 });
 
