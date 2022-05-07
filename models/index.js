@@ -1,6 +1,6 @@
-const Collection = require("./collection");
-const User = require("./user");
-const Item = require("./item");
+const Collection = require("./Collection");
+const User = require("./User");
+const Item = require("./Item");
 const Image = require("./Image");
 
 User.hasMany(Collection, {
