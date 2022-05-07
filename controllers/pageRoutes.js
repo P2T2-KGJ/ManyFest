@@ -198,4 +198,8 @@ router.get("/upload", async(req, res) => {
     res.render("photoUpload")
 })
 
+router.get("/image", async(req, res) => {
+    res.render("uploaded")
+})
+
 module.exports = router;
