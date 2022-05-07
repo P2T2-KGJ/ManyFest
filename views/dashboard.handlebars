@@ -3,51 +3,104 @@
             list? cards?
         do we want to have the option to delete a collection directly from this page?
         or do we want it limited to the collections page
-        
+
         page needs a either a form, or a button/link that brings up the form for new collection creation
         button could launch a modal with the form contained, would be activated with client-side js
         could also be hidden on page, and button makes form visible
         could also make the form its own page
-        
+
         this page would also be the place to update user information: email and password
         again, this could be handled on page, or via link to new page--}}
-
-        
-
-<section class="overflow-hidden text-gray-700 ">
+<section class="overflow-hidden text-gray-700 py-8">
   <div class="flex">
-    <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">My Collections</h2>
-    <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#addModal">Add Collection</button>
-    {{> dashboard-add}}
-  
+    <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">User Data:</h2>
+    <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#editUserModal">Update User:</button>
   </div>
-  
-  <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
-    <div class="flex flex-wrap -m-1 md:-m-2">
-        {{#each collectionData}}
-        <div class="flex justify-center mx-2">
-          <div class="rounded-lg shadow-lg bg-white max-w-sm">
-            <a href="collections/{{id}}" data-mdb-ripple="true" data-mdb-ripple-color="light">
-              <img class="rounded-t-lg" src="https://mdbootstrap.com/img/new/standard/nature/182.jpg" alt=""/>
-            </a>
-            <div class="p-6">
-              <h5 class="text-gray-900 text-xl font-medium mb-2">{{name}}</h5>
-              <p class="text-gray-700 text-base mb-4">
-                {{description}}
-              </p>
+  <div class="flex flex-col col-6">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block w-2/4 sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-white border-b">
+              <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Username:
+                </th>
+                <td scope="col" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                Jesse
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Email Address:
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                Jesse@email.com
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-              {{!-- buttons for modals --}}
-                <button type="button" class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-                <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+      {{> dashboard-userEdit}}
 
-                {{> dashboard-edit}}
-                {{> dashboard-delete}}
+  </div>
+</section>
 
-            </div>
+
+<section class="overflow-hidden text-gray-700 w-2/4">
+  <div class="flex">
+    <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">My Collections:</h2>
+    <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#addModal">Add Collection</button>
+
+    {{> dashboard-add}}
+
+  </div>
+  <div class="accordion pt-4" id="accordionExample">
+
+    {{#each collectionData}}
+
+      <div class="accordion-item bg-white border border-gray-200">
+        <h2 class="accordion-header mb-0" id="headingOne">
+          <button class="
+          accordion-button
+          relative
+          flex
+          items-center
+          w-full
+          py-4
+          px-5
+          text-base text-gray-800 text-left
+          bg-white
+          border-0
+          rounded-none
+          transition
+          focus:outline-none
+          " type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="true"
+          aria-controls="collapseOne">
+          {{name}}
+          </button>
+        </h2>
+        <div id="collapse{{id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
+          <div class="accordion-body py-4 px-5">
+          {{description}}
+          </div>
+          <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+            <button type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out">
+              <a href="collections/{{id}}">
+              View
+              </a>
+            </button>
           </div>
         </div>
-        
-        {{/each}}
-    </div>
+      </div>
+
+    {{/each}}
+
   </div>
 </section>

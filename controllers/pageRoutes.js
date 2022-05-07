@@ -94,12 +94,12 @@ router.get("/:username/dashboard", async (req, res) => {
                     { model: User}
                 ]
             })
-            
+
             const collectionData = dbCollectionData.map((user) =>
             user.get({ plain: true })
             );
             console.log(req.session.userName)
-            
+
             res.render('dashboard', {
                 collectionData,
                 loggedIn: req.session.loggedIn,
@@ -108,8 +108,8 @@ router.get("/:username/dashboard", async (req, res) => {
 
             console.log(collectionData)
 
-            
-        
+
+
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
@@ -125,20 +125,20 @@ router.get("/:username/collections/:id", async (req, res) => {
     try {
         // this will need the same verification/authorization as the dashboard
         const collectionData = await Collection.findByPk(req.params.id, {
-            include: [ { model: Item }, {model: Image} ],
+            include: [ { model: Item } ],
         });
 
 
 
-        
+
         if (!collectionData) {
             res.status(404).sendFile(
                 path.join(__dirname, "../public", "404.html")
                 );
             }
-            
+
             const collection = collectionData.get({ plain: true });
-            
+
         res.render("collection", {
             collection,
             loggedIn: req.session.loggedIn,
@@ -155,7 +155,7 @@ router.get("/:username/collections/:id", async (req, res) => {
 router.get("/:username/items/:id", async (req, res) => {
     // needs the same verification/authorization as the dashboard & collections pages
     try {
-        const itemData = await Item.findByPk(req.params.id, { 
+        const itemData = await Item.findByPk(req.params.id, {
             include: [{ model: Image}]
         });
         // when we figure out images, that will need to be included

@@ -23,11 +23,6 @@ Item.hasMany(Image, {
     onDelete: "CASCADE",
 });
 
-Collection.hasMany(Image, {
-    foreignKey: "item_id",
-    onDelete: "CASCADE",
-});
-
 Item.belongsTo(Collection, {
     foreignKey: "collection_id",
     unique: false,

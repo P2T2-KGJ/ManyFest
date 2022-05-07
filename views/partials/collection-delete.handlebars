@@ -1,0 +1,32 @@
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+id="deleteModal"
+tabindex="-1"
+aria-labelledby="Delete Collection"
+aria-hidden="true">
+  <div class="modal-dialog relative w-auto pointer-events-none">
+    <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+      <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+        <h5 class="text-xl font-medium leading-normal text-red-800">Are you sure you want to delete this collection?</h5>
+      </div>
+
+      <div class="block p-6 rounded-lg shadow-lg bg-white">
+        <form>
+            <div class="modal-body relative p-4">
+              <p>Please note: <span class="text-red-800">This cannot be reversed</span></p>
+              <p class="pt-4">Please confirm the collection name ('{{name}}') to complete the deletion.</p>
+            </div>
+            <div class="modal-body relative p-4">
+               <input type="text" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="collectionName">
+            </div>
+
+          <div class="flex flex-shrink-0 flex-wrap items-center justify-end px-4 border-gray-200 rounded-b-md">
+
+            <button type="button" class="px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">DELETE</button>
+
+          </div>
+        </form>
+	    </div>
+    </div>
+  </div>
+</div>
