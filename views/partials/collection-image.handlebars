@@ -1,0 +1,8 @@
+
+{{#if collection.images}}
+    <img alt="{{description}}" class="block object-cover object-center w-full h-full rounded-lg"
+    src="{{collection.images.[0].link}}">
+{{else}}
+    <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg"
+    src="/images/Manyfest.png">
+{{/if}}
