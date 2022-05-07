@@ -194,4 +194,8 @@ router.get("/about", async (req, res) => {
     }
 });
 
+router.get("/upload", async(req, res) => {
+    res.render("photoUpload")
+})
+
 module.exports = router;

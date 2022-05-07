@@ -1,27 +1,42 @@
 const router = require("express").Router();
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-var aws = require("aws-sdk");
-var s3 = new aws.S3({
-    /* ... */
+const aws = require("aws-sdk");
+const { nanoid } = require("nanoid");
+const {Item, Image} = require('../../models')
+
+const s3 = new aws.S3({
+    accesKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccesKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
-var upload = multer({
+
+const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: "manyfest",
+        bucket: process.env.AWS_S3_BUCKET_NAME,
         metadata: function (req, file, cb) {
-            cb(null, { fieldName: file.fieldname });
+            cb(null, { fieldname: file.fieldname });
         },
-        acl: /* acl param goes here if needed */ '',
         key: function (req, file, cb) {
-            cb(null, Date.now().toString());
+            cb(null, `${Date.now().toString()}${file.originalname}`);
         },
     }),
 });
 
-router.post("/upload", upload.array("photos", 3), function (req, res, next) {
-    res.send("Successfully uploaded " + req.files.length + " files!");
+
+
+
+router.post("/", upload.single('uploaded_image'), async function (req, res, next) {
+    console.log("FILE", req.file)
+    res.send("Successfully uploaded " + req.file + "!");
+
+
+    try{
+        const imageData = await Image.create({
+            
+        })
+    } catch(err){}
 });
 
 module.exports = router;
