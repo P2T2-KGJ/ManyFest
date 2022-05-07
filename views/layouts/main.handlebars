@@ -94,6 +94,9 @@
                 <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/{{userName}}/dashboard">My Dashboard</a>
             </li>
             {{/if}}
+            <li class="nav-item p-2">
+                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/about">About Us</a>
+            </li>
             </ul>
       </div>
 
@@ -113,10 +116,10 @@
     
     {{{body}}}
 
+  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
   {{#if loggedIn}}
       <script src="/js/logout.js"></script>
   {{/if}}
-  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
   {{!-- <script src="/node_modules/"></script> --}}
 </body>
 

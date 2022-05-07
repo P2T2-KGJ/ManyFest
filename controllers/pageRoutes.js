@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const path = require("path");
-const { Collection, Item, User } = require("../models");
+const { Collection, Item, User, Image } = require("../models");
 const { withAuth } = require("../utils/auth");
 
 // routes for rendering the pages go here
@@ -117,12 +117,12 @@ router.get("/:username/collections/:id", async (req, res) => {
     try {
         // this will need the same verification/authorization as the dashboard
         const collectionData = await Collection.findByPk(req.params.id, {
-            include: [
-                {
-                    model: Item
-                },
-            ],
+            include: [ { model: Item }, {model: Image} ],
         });
+
+
+
+        
         if (!collectionData) {
             res.status(404).sendFile(
                 path.join(__dirname, "../public", "404.html")
@@ -130,14 +130,12 @@ router.get("/:username/collections/:id", async (req, res) => {
             }
             
             const collection = collectionData.get({ plain: true });
+            
         res.render("collection", {
             collection,
             loggedIn: req.session.loggedIn,
             userName: req.session.userName
         });
-
-
-        console.log(collection.items[1].name);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -149,7 +147,9 @@ router.get("/:username/collections/:id", async (req, res) => {
 router.get("/:username/items/:id", async (req, res) => {
     // needs the same verification/authorization as the dashboard & collections pages
     try {
-        const itemData = await Item.findByPk(req.params.id);
+        const itemData = await Item.findByPk(req.params.id, { 
+            include: [{ model: Image}]
+        });
         // when we figure out images, that will need to be included
 
         if (!itemData) {
@@ -160,7 +160,6 @@ router.get("/:username/items/:id", async (req, res) => {
 
         const item = itemData.get({ plain: true });
 
-        console.log(item);
         // will this be a full page render, or handled client side?
         res.render("item", {
             item,
@@ -178,7 +177,10 @@ router.get("/:username/items/:id", async (req, res) => {
 // something fun here would be nice
 router.get("/about", async (req, res) => {
     try {
-        res.render("about");
+        res.render("about", {
+            loggedIn: req.session.loggedIn,
+            userName: req.session.userName
+        });
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }

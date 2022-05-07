@@ -12,6 +12,8 @@ Image.init(
         description: {
             type: DataTypes.STRING,
         },
+        link : {type: DataTypes.STRING,
+        },
         item_id: {
             type: DataTypes.INTEGER,
             references: {
