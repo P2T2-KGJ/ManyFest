@@ -98,16 +98,12 @@ router.get("/:username/dashboard", async (req, res) => {
             const collectionData = dbCollectionData.map((user) =>
             user.get({ plain: true })
             );
-            console.log(req.session.userName)
 
             res.render('dashboard', {
                 collectionData,
                 loggedIn: req.session.loggedIn,
                 userName: req.session.userName
-            })
-
-            console.log(collectionData)
-
+            });
 
 
     } catch (err) {
