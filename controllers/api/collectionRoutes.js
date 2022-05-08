@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
       description: req.body.description,
       public: req.body.public
     });
-    res.status(200).json(collectionData);
+    res.status(201).json(collectionData);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -31,7 +31,7 @@ router.put('/:id', async (req, res) => {
       res.status(404).json({ message: 'No collection with this id!' });
       return;
     }
-    res.status(200).json(collectionData);
+    res.status(201).json(collectionData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -49,7 +49,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ message: 'No collection with this id!' });
       return;
     }
-    res.status(200).json(collectionData);
+    res.status(201).json(collectionData);
   } catch (err) {
     res.status(500).json(err);
   }

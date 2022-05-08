@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../../models");
-const { checkID } = require("../../utils/checkID");
+const { withAuth, confirmUser } = require("../../utils/auth");
 
 // CREATE new user
 router.post("/", async (req, res) => {
@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
 
         req.session.save(() => {
             req.session.loggedIn = true;
-            req.session.sessID = userData.id;
+            req.session.userId = userData.id;
             req.session.userName = userData.username;
             res.status(201).json(userData);
         });
@@ -23,9 +23,35 @@ router.post("/", async (req, res) => {
     }
 });
 
-// delete user
-
 // update user
+router.put("/", withAuth, async (req, res) => {
+    // update user logic
+    try {
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// delete user
+router.delete("/", withAuth, async (req, res) => {
+    // delete user logic
+    if (!confirmUser(req)) {
+        res.status(401).json();
+    }
+    try {
+        const userData = await User.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+        if (!userData) {
+            res.status(404).json();
+        }
+        res.status(200).json({ message: "User successfully deleted." });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 // Login
 router.post("/login", async (req, res) => {
@@ -53,7 +79,7 @@ router.post("/login", async (req, res) => {
         }
 
         req.session.save(() => {
-            req.session.sessID = userData.id;
+            req.session.userId = userData.id;
             req.session.loggedIn = true;
             req.session.userName = userData.username;
 
