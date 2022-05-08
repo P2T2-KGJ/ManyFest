@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { User } = require("../../models");
-
 const { checkID } = require("../../utils/checkID");
 
 // CREATE new user
@@ -14,13 +13,19 @@ router.post("/", async (req, res) => {
 
         req.session.save(() => {
             req.session.loggedIn = true;
-            res.status(200).json(userData);
+            req.session.sessID = userData.id;
+            req.session.userName = userData.username;
+            res.status(201).json(userData);
         });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     }
 });
+
+// delete user
+
+// update user
 
 // Login
 router.post("/login", async (req, res) => {

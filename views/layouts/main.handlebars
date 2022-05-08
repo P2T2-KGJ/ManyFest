@@ -26,21 +26,8 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="
-  relative
-  w-full
-  flex flex-wrap
-  items-center
-  justify-between
-  py-4
-  bg-gray-100
-  text-gray-500
-  hover:text-gray-700
-  focus:text-gray-700
-  shadow-lg
-  navbar navbar-expand-lg navbar-light
-  ">
-    <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
+  <nav class="relative flex flex-wrap items-center justify-between w-full py-4 text-gray-500 bg-gray-100 shadow-lg hover:text-gray-700 focus:text-gray-700 navbar navbar-expand-lg navbar-light">
+    <div class="flex flex-wrap items-center justify-between w-full px-6 container-fluid">
       <button class="
       navbar-toggler
       text-gray-500
@@ -59,61 +46,50 @@
           </path>
         </svg>
       </button>
-      <div class="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-        <a class="
-        flex
-        items-center
-        text-gray-900
-        hover:text-gray-900
-        focus:text-gray-900
-        mt-2
-        lg:mt-0
-        mr-1
-      " href="#">
+      <div class="items-center flex-grow collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="flex items-center mt-2 mr-1 text-gray-900 hover:text-gray-900 focus:text-gray-900 lg:mt-0" href="#">
           <!-- Navbar image -->
           <img src="/images/Manyfest.png" style="height: 60px" alt="ManyFest"
             loading="lazy" />
         </a>
         <!-- Left links -->
-        <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
-            <li class="nav-item p-2">
-                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/">Homepage</a>
+        <ul class="flex flex-col pl-0 mr-auto navbar-nav list-style-none">
+            <li class="p-2 nav-item">
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" href="/">Homepage</a>
             </li>
 
             {{#unless loggedIn}}
-            <li class="nav-item p-2">
-                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" id = "login" href="/login">Login</a>
+            <li class="p-2 nav-item">
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "login" href="/login">Login</a>
             </li>
-            <li class="nav-item p-2">
-                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" id = "login" href="/signup">Sign Up</a>
+            <li class="p-2 nav-item">
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "login" href="/signup">Sign Up</a>
             </li>
             {{/unless}}
 
             {{#if loggedIn}}
-            <li class="nav-item p-2">
-                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/{{userName}}/dashboard">My Dashboard</a>
+            <li class="p-2 nav-item">
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" href="/{{userName}}/dashboard">My Dashboard</a>
             </li>
             {{/if}}
-            <li class="nav-item p-2">
-                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" href="/about">About Us</a>
+            <li class="p-2 nav-item">
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" href="/about">About Us</a>
             </li>
             </ul>
       </div>
 
       <!-- Right elements -->
-      <div class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
+      <div class="flex flex-col pl-0 mr-auto navbar-nav list-style-none">
         {{#if loggedIn}}
         <ul>
-            <li class="nav-item p-2">
-                <a class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" id="logout">Logout</a>
+            <li class="p-2 nav-item">
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id="logout">Logout</a>
             </li>
         </ul>
         {{/if}}
     </div>
   </nav>
   
-  <br>
-    
     {{{body}}}
 
   <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
