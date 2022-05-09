@@ -1,17 +1,15 @@
 const router = require('express').Router();
 const { Collection, Item } = require('../../models');
+const {withAuth, userAuth} = require("../../utils/auth");
 
-// from kit: I think these first two actually need to be on a page route
-// api routes for this project will be creation/edit/deletion
-// get routes should all be for page rendering
-
-router.post('/', async (req, res) => {
-  // create a new category
+// create a new category
+router.post('/', withAuth, async (req, res) => {
   try {
     const collectionData = await Collection.create({
       name: req.body.name,
       description: req.body.description,
-      public: req.body.public
+      public: req.body.private,
+      user_id: req.body.userId
     });
     res.status(201).json(collectionData);
   } catch (err) {
@@ -19,7 +17,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+// needs verification that the category belongs to the user
+router.put('/:id', withAuth, async (req, res) => {
   // update a category by its `id` value
   try {
     const collectionData = await Collection.update(req.body, {
@@ -37,7 +36,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+// needs verification that the category belongs to the user
+router.delete('/:id', withAuth, async (req, res) => {
   // delete a category by its `id` value
   try {
     const collectionData = await Collection.destroy({

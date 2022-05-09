@@ -2,7 +2,7 @@ const router = require("express").Router();
 const path = require("path");
 
 const { Collection, Item, User, Image } = require("../models");
-const { withAuth, confirmUser } = require("../utils/auth");
+const { withAuth, userAuth } = require("../utils/auth");
 
 
 // routes for rendering the pages go here

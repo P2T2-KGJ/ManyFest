@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../../models");
-const { withAuth, confirmUser } = require("../../utils/auth");
+const { withAuth, userAuth } = require("../../utils/auth");
 
 // CREATE new user
 router.post("/", async (req, res) => {
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
 });
 
 // update user
-router.put("/", withAuth, async (req, res) => {
+router.put("/", withAuth, userAuth, async (req, res) => {
     // update user logic
     try {
     } catch (err) {
@@ -33,25 +33,29 @@ router.put("/", withAuth, async (req, res) => {
 });
 
 // delete user
-router.delete("/", withAuth, async (req, res) => {
-    // delete user logic
-    if (!confirmUser(req)) {
-        res.status(401).json();
-    }
-    try {
-        const userData = await User.destroy({
-            where: {
-                id: req.params.id,
-            },
-        });
-        if (!userData) {
-            res.status(404).json();
+router.delete(
+    "/",
+    withAuth, userAuth, async (req, res) => {
+
+        try {
+            const userData = await User.destroy({
+                where: {
+                    id: req.body.userId,
+                },
+            });
+            if (!userData) {
+                res.status(404).json({ message: "User does not exist." });
+            }
+            req.session.destroy(() => {
+                res.status(200).json({ message: "User successfully deleted." });
+            })
+            
+
+        } catch (err) {
+            res.status(500).json(err);
         }
-        res.status(200).json({ message: "User successfully deleted." });
-    } catch (err) {
-        res.status(500).json(err);
     }
-});
+);
 
 // Login
 router.post("/login", async (req, res) => {
