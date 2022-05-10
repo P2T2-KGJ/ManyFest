@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../../models");
-
-const { checkID } = require("../../utils/checkID");
+const { withAuth, userAuth } = require("../../utils/auth");
 
 // CREATE new user
 router.post("/", async (req, res) => {
@@ -14,13 +13,49 @@ router.post("/", async (req, res) => {
 
         req.session.save(() => {
             req.session.loggedIn = true;
-            res.status(200).json(userData);
+            req.session.userId = userData.id;
+            req.session.userName = userData.username;
+            res.status(201).json(userData);
         });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     }
 });
+
+// update user
+router.put("/", withAuth, userAuth, async (req, res) => {
+    // update user logic
+    try {
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+// delete user
+router.delete(
+    "/",
+    withAuth, userAuth, async (req, res) => {
+
+        try {
+            const userData = await User.destroy({
+                where: {
+                    id: req.body.userId,
+                },
+            });
+            if (!userData) {
+                res.status(404).json({ message: "User does not exist." });
+            }
+            req.session.destroy(() => {
+                res.status(200).json({ message: "User successfully deleted." });
+            })
+            
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+);
 
 // Login
 router.post("/login", async (req, res) => {
@@ -48,7 +83,7 @@ router.post("/login", async (req, res) => {
         }
 
         req.session.save(() => {
-            req.session.sessID = userData.id;
+            req.session.userId = userData.id;
             req.session.loggedIn = true;
             req.session.userName = userData.username;
 
