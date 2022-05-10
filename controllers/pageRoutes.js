@@ -2,7 +2,7 @@ const router = require("express").Router();
 const path = require("path");
 
 const { Collection, Item, User, Image } = require("../models");
-const { withAuth, confirmUser } = require("../utils/auth");
+const { withAuth, userAuth } = require("../utils/auth");
 
 
 // routes for rendering the pages go here
@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
             res.render("homepage", {
                 itemData,
                 loggedIn: req.session.loggedIn,
-                sessID: req.session.sessID,
+                userId: req.session.userId,
                 userName: req.session.userName,
             });
         }
@@ -65,7 +65,7 @@ router.get("/login", (req, res) => {
 router.get("/signup", (req, res) => {
     if (req.session.loggedIn) {
         // do we want to send people to the front page, or to their dashboard?
-        res.redirect("/");
+        res.redirect("/:username/dashboard");
         return;
     }
     res.render("signup");
@@ -88,7 +88,7 @@ router.get("/:username/dashboard", async (req, res) => {
         try {
             const dbCollectionData = await Collection.findAll({
                 where: {
-                    user_id: req.session.sessID,
+                    user_id: req.session.userId,
                 },
                 include: [
                     { model: User}

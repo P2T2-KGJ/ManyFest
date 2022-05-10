@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const { Item } = require("../../models");
-const { withAuth } = require("../../utils/auth");
+const { withAuth, userAuth } = require("../../utils/auth");
 
 // create new item
-router.post("/", withAuth, async (req, res) => {
+router.post("/", withAuth, userAuth, async (req, res) => {
     try {
         const itemData = await Item.create({
             name: req.body.name,
@@ -16,7 +16,7 @@ router.post("/", withAuth, async (req, res) => {
 });
 
 // edit existing item by id
-router.put("/:id", withAuth, async (req, res) => {
+router.put("/:id", withAuth, userAuth, async (req, res) => {
     try {
         const itemData = await Item.update(req.body, {
             where: {
@@ -34,7 +34,7 @@ router.put("/:id", withAuth, async (req, res) => {
 });
 
 // delete an item by id
-router.delete("/:id", withAuth, async (req, res) => {
+router.delete("/:id", withAuth, userAuth, async (req, res) => {
     try {
         const itemData = await Item.destroy({
             where: {
