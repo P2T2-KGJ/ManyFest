@@ -119,10 +119,10 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
     }
 });
 
-// single collection view - with item names, maybe pictures? no details
-// can handle item inspection on the client side, with a modal
-// or have page for looking at single items
-// consider mobile users
+// redirect to user/collection/:id
+router.get("/collections/:id", withAuth, async (req, res) => {
+    res.redirect(`/${req.session.userName}/collections/${req.params.id}`)
+})
 
 // render all items in a collection
 router.get("/:username/collections/:id", withAuth, async (req, res) => {
