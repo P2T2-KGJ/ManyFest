@@ -29,23 +29,22 @@ router.post(
     "/",
     upload.single("uploaded_image"),
     async function (req, res, next) {
-        // console.log("FILE", req.file);
         console.log("Successfully uploaded:", req.file);
-        // res.send()
 
-        // try {
-        //     const imageData = await Image.create({
-        //         name: req.originalname,
-        //         description: req.body,
-        //         link: req.file.location,
-        //         AWS_key: req.key,
-        //         item_id: 1,
-        //     });
-        //     const image = imageData.get({ plain: true });
-        //     res.render("uploadedImage", image);
-        // } catch (err) {
-        //     console.log(err);
-        // }
+        try {
+            const imageData = await Image.create({
+                name: req.originalname,
+                description: req.body,
+                link: req.file.location,
+                AWS_key: req.key,
+                // item id needs to get here somehow
+                item_id: 1,
+            });
+            const image = imageData.get({ plain: true });
+            res.render("uploadedImage", image);
+        } catch (err) {
+            console.log(err);
+        }
     }
 );
 

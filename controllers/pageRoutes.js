@@ -2,7 +2,7 @@ const router = require("express").Router();
 const path = require("path");
 
 const { Collection, Item, User, Image } = require("../models");
-const { withAuth, confirmUser } = require("../utils/auth");
+const { withAuth, userAuth } = require("../utils/auth");
 
 
 // routes for rendering the pages go here
@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
             res.render("homepage", {
                 itemData,
                 loggedIn: req.session.loggedIn,
-                sessID: req.session.sessID,
+                userId: req.session.userId,
                 userName: req.session.userName,
             });
         }
@@ -65,7 +65,7 @@ router.get("/login", (req, res) => {
 router.get("/signup", (req, res) => {
     if (req.session.loggedIn) {
         // do we want to send people to the front page, or to their dashboard?
-        res.redirect("/");
+        res.redirect("/:username/dashboard");
         return;
     }
     res.render("signup");
@@ -88,26 +88,25 @@ router.get("/:username/dashboard", async (req, res) => {
         try {
             const dbCollectionData = await Collection.findAll({
                 where: {
-                    user_id: req.session.sessID,
+                    user_id: req.session.userId,
                 },
                 include: [
                     { model: User}
-                ]
+                ],
+                order: [["id", "DESC"]],
             })
 
             const collectionData = dbCollectionData.map((user) =>
             user.get({ plain: true })
             );
-            console.log(req.session.userName)
+
+            collectionData.userName = req.session.userName;
 
             res.render('dashboard', {
                 collectionData,
                 loggedIn: req.session.loggedIn,
                 userName: req.session.userName
-            })
-
-            console.log(collectionData)
-
+            });
 
 
     } catch (err) {
@@ -128,9 +127,6 @@ router.get("/:username/collections/:id", async (req, res) => {
             include: [ { model: Item } ],
         });
 
-
-
-
         if (!collectionData) {
             res.status(404).sendFile(
                 path.join(__dirname, "../public", "404.html")
@@ -141,8 +137,8 @@ router.get("/:username/collections/:id", async (req, res) => {
 
         res.render("collection", {
             collection,
-            loggedIn: req.session.loggedIn,
-            userName: req.session.userName
+            // loggedIn: req.session.loggedIn,
+            // userName: req.session.userName
         });
     } catch (err) {
         res.status(500).json(err);
@@ -193,13 +189,5 @@ router.get("/about", async (req, res) => {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
 });
-
-router.get("/upload", async(req, res) => {
-    res.render("photoUpload")
-})
-
-router.get("/image", async(req, res) => {
-    res.render("uploaded")
-})
 
 module.exports = router;

@@ -1,15 +1,30 @@
 
 <section class="h-screen signup-form">
-  <div class="px-6 h-full text-gray-800">
+    <div class="h-full px-6 text-gray-800">
     <div
-      class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
+        class="flex flex-wrap items-center justify-center h-full xl:justify-center lg:justify-between g-6"
     >
 
+                <div
+                    class="justify-center mb-12 grow-0 shrink-1 md:shrink-1 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 md:mb-0"
+                    >
+                    <img
+                        src="/images/Manyfest.png"
+                        class="max-w-xl"
+                        style="height: 300px"
+                        alt="ManyFest Logo"
+                    />
+                </div>
 
-                <div class="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+                <div class="block max-w-md p-6 bg-white rounded-lg shadow-lg">
                 <form>
                     <div class="grid">
-                    <div class="form-group mb-6">
+
+                        <div id="user-warning" class="text-sm text-red-700">
+                            {{!-- Username or email already in use. --}}
+                        </div>
+
+                    <div class="mb-2 form-group">
                         <input type="text" class="form-control
                         block
                         w-full
@@ -25,10 +40,10 @@
                         ease-in-out
                         m-0
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="userName"
-                        aria-describedby="emailHelp123" placeholder="User Name">
+                        placeholder="Username">
                     </div>
                     </div>
-                    <div class="form-group mb-6">
+                    <div class="mb-6 form-group">
                     <input type="email" class="form-control block
                         w-full
                         px-3
@@ -45,7 +60,12 @@
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="emailAddress"
                         placeholder="Email address">
                     </div>
-                    <div class="form-group mb-6">
+
+                    <div id="password-warning" class="text-sm text-red-700">
+                        {{!-- Passwords must match. --}}
+                    </div>
+
+                    <div class="mb-2 form-group">
                     <input type="password" class="form-control block
                         w-full
                         px-3
@@ -62,7 +82,29 @@
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="password"
                         placeholder="Password">
                     </div>
-                    <button type="submit" class="
+
+                    <div class="mb-4 form-group">
+                            <input type="password" class="form-control block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        id="password-confirm"
+                        placeholder="Confirm Password">
+                        </div>
+            <div id="fields-warning" class="px-4 text-sm text-red-700">
+                {{!-- All fields must be filled out. --}}
+            </div>
+                    <button id="submit-button" class="
                     w-full
                     px-6
                     py-2.5
@@ -80,18 +122,10 @@
                     transition
                     duration-150
                     ease-in-out">Sign up</button>
+                    
                 </form>
                 </div>
-                <div
-                    class="grow-0 shrink-1 md:shrink-1 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0 justify-center"
-                    >
-                    <img
-                        src="/images/Manyfest.png"
-                        class="max-w-xl"
-                        style="height: 300px"
-                        alt="ManyFest Logo"
-                    />
-                </div>
+
             </div>
         </div>
     </div>

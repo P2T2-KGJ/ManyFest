@@ -1,26 +1,24 @@
+const { blockParams } = require("handlebars");
+
 module.exports = {
     // check if user is logged in, else redirect to login
     withAuth: (req, res, next) => {
-        if (!req.session.logged_in) {
+        if (!req.session.loggedIn) {
             res.redirect("/login");
         } else {
             next();
         }
     },
-    // takes session data & username and returns boolean on if it exists and matches session
-    confirmUser: async (sess, username) => {
-        const userData = await User.findOne(req.body, {
-            where: {
-                username,
-            },
-        });
 
-        if (!userData) {
-            return false;
+    // makes sure user is only affecting data they own
+    userAuth: async (req, res, next) => {
+        if (
+            req.body.userId !== req.session.userId ||
+            req.params.userId !== req.session.userId
+        ) {
+            res.redirect(`/${req.session.userId}`);
+        } else {
+            next();
         }
-
-        const userInfo = userData.get({ plain: true });
-        // instead of sess.userId, use whatever you used to store the session userid in
-        return userInfo.id === sess.userId ? sess.userId : false;
     },
 };
