@@ -3,7 +3,7 @@ const { blockParams } = require("handlebars");
 module.exports = {
     // check if user is logged in, else redirect to login
     withAuth: (req, res, next) => {
-        if (!req.session.logged_in) {
+        if (!req.session.loggedIn) {
             res.redirect("/login");
         } else {
             next();

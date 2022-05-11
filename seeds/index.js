@@ -11,7 +11,7 @@ const seedDatabase = async () => {
     await seedUsers();
     await seedCollections();
     await seedItems();
-    await seedImages();
+    // await seedImages();
 
     process.exit(0);
 };
