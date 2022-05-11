@@ -3,7 +3,7 @@ const { Collection, Item } = require('../../models');
 const {withAuth, userAuth} = require("../../utils/auth");
 
 // create a new category
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
   try {
     const collectionData = await Collection.create({
       name: req.body.name,
@@ -26,7 +26,8 @@ router.put('/:id', withAuth, async (req, res) => {
         id: req.params.id,
       },
     });
-    if (!collectionData[0]) {
+
+    if (!collectionData) {
       res.status(404).json({ message: 'No collection with this id!' });
       return;
     }
