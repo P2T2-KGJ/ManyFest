@@ -18,7 +18,7 @@ const editCollectionHandler = async (event) => {
     if (!response.ok) {
         console.log("Please review input information.")
     } else {
-        // document.location.replace(`/${username}/collections/${id}`);
+        location.reload();
     }
 };
 
