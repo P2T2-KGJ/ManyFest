@@ -23,6 +23,19 @@ router.post("/", async (req, res) => {
     }
 });
 
+// get user by username
+router.get("/:username", async (req, res) => {
+    try {
+        const userData = await User.findOne({
+            where: { username: req.params.username },
+        });
+        const user = userData.get({ plain: true });
+        res.status(200).json(user.userId);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 // update user
 router.put("/", withAuth, userAuth, async (req, res) => {
     // update user logic
@@ -33,29 +46,23 @@ router.put("/", withAuth, userAuth, async (req, res) => {
 });
 
 // delete user
-router.delete(
-    "/",
-    withAuth, userAuth, async (req, res) => {
-
-        try {
-            const userData = await User.destroy({
-                where: {
-                    id: req.body.userId,
-                },
-            });
-            if (!userData) {
-                res.status(404).json({ message: "User does not exist." });
-            }
-            req.session.destroy(() => {
-                res.status(200).json({ message: "User successfully deleted." });
-            })
-            
-
-        } catch (err) {
-            res.status(500).json(err);
+router.delete("/", withAuth, userAuth, async (req, res) => {
+    try {
+        const userData = await User.destroy({
+            where: {
+                id: req.body.userId,
+            },
+        });
+        if (!userData) {
+            res.status(404).json({ message: "User does not exist." });
         }
+        req.session.destroy(() => {
+            res.status(200).json({ message: "User successfully deleted." });
+        });
+    } catch (err) {
+        res.status(500).json(err);
     }
-);
+});
 
 // Login
 router.post("/login", async (req, res) => {
