@@ -1,43 +1,45 @@
 {{!-- user dashboard, only seen when logged in
-        page should have all collections on the page
-            list? cards?
-        do we want to have the option to delete a collection directly from this page?
-        or do we want it limited to the collections page
+page should have all collections on the page
+list? cards?
+do we want to have the option to delete a collection directly from this page?
+or do we want it limited to the collections page
 
-        page needs a either a form, or a button/link that brings up the form for new collection creation
-        button could launch a modal with the form contained, would be activated with client-side js
-        could also be hidden on page, and button makes form visible
-        could also make the form its own page
+page needs a either a form, or a button/link that brings up the form for new collection creation
+button could launch a modal with the form contained, would be activated with client-side js
+could also be hidden on page, and button makes form visible
+could also make the form its own page
 
-        this page would also be the place to update user information: email and password
-        again, this could be handled on page, or via link to new page--}}
-<section class="overflow-hidden text-gray-700 py-8">
+this page would also be the place to update user information: email and password
+again, this could be handled on page, or via link to new page--}}
+<section class="py-8 overflow-hidden text-gray-700">
   <div class="flex">
-    <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">User Data:</h2>
-    <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#editUserModal">Update User:</button>
+    <h2 class="pl-8 mt-0 mb-2 text-4xl font-medium leading-tight">User Data:</h2>
+    <button type="button"
+      class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8"
+      data-bs-toggle="modal" data-bs-target="#editUserModal">Update User:</button>
   </div>
   <div class="flex flex-col col-6">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="py-2 inline-block w-2/4 sm:px-6 lg:px-8">
+      <div class="inline-block w-2/4 py-2 sm:px-6 lg:px-8">
         <div class="overflow-hidden">
           <table class="min-w-full">
             <thead class="bg-white border-b">
-              <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Username:
+              <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
+                <th scope="col" class="px-6 py-4 text-sm font-medium text-left text-gray-900">
+                  Username:
                 </th>
-                <td scope="col" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {{userName}}
+                <td scope="col" class="px-6 py-4 text-sm font-light text-gray-900 whitespace-nowrap">
+                  {{collectionData.[0].user.username}}
                 </td>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Email Address:
-                </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {{collectionData.[0].user.email}}
+              <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
+                <th class="px-6 py-4 text-sm font-medium text-left text-gray-900">
+                  Email Address:
+                  </td>
+                <td class="px-6 py-4 text-sm font-light text-gray-900 whitespace-nowrap">
+                  {{collectionData.[0].user.email}}
                 </td>
               </tr>
             </tbody>
@@ -46,57 +48,48 @@
       </div>
     </div>
 
-      {{> dashboard-userEdit}}
+    {{> dashboard-userEdit}}
 
   </div>
 </section>
 
 
-<section class="overflow-hidden text-gray-700 w-2/4">
+<section class="w-2/4 overflow-hidden text-gray-700">
   <div class="flex">
-    <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">My Collections:</h2>
-    <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#addModal">Add Collection</button>
+    <h2 class="pl-8 mt-0 mb-2 text-4xl font-medium leading-tight">My Collections:</h2>
+    <button type="button"
+      class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8"
+      data-bs-toggle="modal" data-bs-target="#addModal">Add Collection</button>
 
     {{> dashboard-addCollection}}
 
   </div>
-  <div class="accordion pt-4" id="accordionExample">
-
+  <div class="pt-4 accordion" id="accordionExample">
+    {{log collectionData}}
     {{#each collectionData}}
 
-      <div class="accordion-item bg-white border border-gray-200">
-        <h2 class="accordion-header mb-0" id="headingOne">
-          <button class="
-          accordion-button
-          relative
-          flex
-          items-center
-          w-full
-          py-4
-          px-5
-          text-base text-gray-800 text-left
-          bg-white
-          border-0
-          rounded-none
-          transition
-          focus:outline-none
-          " type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="true"
+    <div class="bg-white border border-gray-200 accordion-item">
+      <h2 class="mb-0 accordion-header" id="headingOne">
+        <button
+          class="relative flex items-center w-full px-5 py-4 text-base text-left text-gray-800 transition bg-white border-0 rounded-none accordion-button focus:outline-none"
+          type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{id}}" aria-expanded="true"
           aria-controls="collapseOne">
           {{name}}
-          </button>
-        </h2>
-        <div id="collapse{{id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+        </button>
+      </h2>
+      <div id="collapse{{id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
         data-bs-parent="#accordionExample">
-          <div class="accordion-body py-4 px-5">
+        <div class="px-5 py-4 accordion-body">
           {{description}}
-          </div>
-          <button type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out">
-            <a href="collections/{{id}}">
-            View
-            </a>
-          </button>
         </div>
+        <button type="button"
+          class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out">
+          <a href="/{{user.username}}/collections/{{id}}">
+            View
+          </a>
+        </button>
       </div>
+    </div>
 
     {{/each}}
 
