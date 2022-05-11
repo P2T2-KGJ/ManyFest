@@ -10,7 +10,7 @@
 <section class="overflow-hidden text-gray-700 py-8">
   <div class="flex align-center justify-center">
     <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">{{collection.name}}</h2>
-    </h2>
+    <span class="hidden" id="collectionId">{{collection.id}}</span>
     <button type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
     <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#editCollectionModal">Edit collection</button>
     <button type="button" class="inline-block px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#deleteCollectionModal">Delete collection</button>

@@ -8,8 +8,8 @@ router.post('/', withAuth, async (req, res) => {
     const collectionData = await Collection.create({
       name: req.body.name,
       description: req.body.description,
-      public: req.body.private,
-      user_id: req.body.userId
+      private: req.body.private,
+      user_id: req.session.userId
     });
     res.status(201).json(collectionData);
   } catch (err) {
@@ -26,7 +26,8 @@ router.put('/:id', withAuth, async (req, res) => {
         id: req.params.id,
       },
     });
-    if (!collectionData[0]) {
+
+    if (!collectionData) {
       res.status(404).json({ message: 'No collection with this id!' });
       return;
     }

@@ -92,7 +92,8 @@ router.get("/:username/dashboard", async (req, res) => {
                 },
                 include: [
                     { model: User}
-                ]
+                ],
+                order: [["id", "DESC"]],
             })
 
             const collectionData = dbCollectionData.map((user) =>
