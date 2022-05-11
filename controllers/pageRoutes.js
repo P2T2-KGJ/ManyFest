@@ -136,6 +136,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
         }
 
         const collection = collectionData.get({ plain: true });
+        // collection.collectionId = req.params.id;
 
         console.log("COLLECTION LOG:", collection);
 
@@ -145,7 +146,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
             userName: req.session.userName,
         });
     } catch (err) {
-        res.status(500).json(err);
+        res.redirect(`/${req.session.userName}/dashboard`);
     }
 });
 
@@ -156,26 +157,34 @@ router.get("/:username/items/:id", withAuth, async (req, res) => {
         const itemData = await Item.findByPk(req.params.id, {
             include: [{ model: Image }],
         });
-        // when we figure out images, that will need to be included
 
         if (!itemData) {
-            res.status(404).sendFile(
-                path.join(__dirname, "../public", "404.html")
-            );
+            res.redirect(`/${req.session.userName}/dashboard`);
         }
 
         const item = itemData.get({ plain: true });
 
-        // will this be a full page render, or handled client side?
         res.render("item", {
             item,
             loggedIn: req.session.loggedIn,
             userName: req.session.userName,
         });
     } catch (err) {
-        res.status(500).json(err);
+        res.redirect(`/${req.session.userName}/dashboard`);
     }
 });
+
+// TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
+
+router.get("/upload", withAuth, async (req, res) => {
+    res.render("uploaded", {
+        collectionId: 3,
+        loggedIn: req.session.loggedIn,
+        userName: req.session.userName,
+    });
+});
+
+// TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
 
 // about us page
 // hard coded information?
