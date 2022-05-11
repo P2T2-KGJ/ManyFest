@@ -3,13 +3,13 @@ const { Collection, Item } = require('../../models');
 const {withAuth, userAuth} = require("../../utils/auth");
 
 // create a new category
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const collectionData = await Collection.create({
       name: req.body.name,
       description: req.body.description,
-      public: req.body.private,
-      user_id: req.body.userId
+      private: req.body.private,
+      user_id: req.session.userId
     });
     res.status(201).json(collectionData);
   } catch (err) {
