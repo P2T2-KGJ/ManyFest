@@ -86,7 +86,6 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
             where: {
                 user_id: req.session.userId,
             },
-            // include: [{ model: User }],
             order: [["id", "DESC"]],
         });
 
@@ -102,8 +101,8 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
             });
         }
 
-        const collections = collectionData.map((user) =>
-            user.get({ plain: true })
+        const collections = collectionData.map((collection) =>
+            collection.get({ plain: true })
         );
 
         collections.userName = userName;
@@ -121,24 +120,24 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
 
 // redirect to user/collection/:id
 router.get("/collections/:id", withAuth, async (req, res) => {
-    res.redirect(`/${req.session.userName}/collections/${req.params.id}`)
-})
+    res.redirect(`/${req.session.userName}/collections/${req.params.id}`);
+});
 
 // render all items in a collection
 router.get("/:username/collections/:id", withAuth, async (req, res) => {
     try {
         // this will need the same verification/authorization as the dashboard
         const collectionData = await Collection.findByPk(req.params.id, {
-            include: [{ model: Item }],
+            include: [{ model: Item, include: [{ model: Image }] }],
         });
 
         if (!collectionData) {
-            res.status(404).sendFile(
-                path.join(__dirname, "../public", "404.html")
-            );
+            res.redirect(`/${req.session.userName}/dashboard`);
         }
 
         const collection = collectionData.get({ plain: true });
+
+        console.log("COLLECTION LOG:", collection);
 
         res.render("collection", {
             collection,
@@ -150,9 +149,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
     }
 });
 
-// item by id
-// this page should have the option to edit the item
-// do we want to handle that on-page client side, or render a new page for it
+// view item by id
 router.get("/:username/items/:id", withAuth, async (req, res) => {
     // needs the same verification/authorization as the dashboard & collections pages
     try {

@@ -49,7 +49,6 @@ router.post(
                 AWS_key: req.key,
                 item_id: imageData.id,
             });
-            // const image = imageData.get({ plain: true });
             console.log("REQUEST BODY", req.body);
             // res.render(`/${session.username}/collections/`)
         } catch (err) {
