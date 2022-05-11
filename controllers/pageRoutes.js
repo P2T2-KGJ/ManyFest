@@ -124,9 +124,6 @@ router.get("/:username/collections/:id", async (req, res) => {
             include: [ { model: Item } ],
         });
 
-
-
-
         if (!collectionData) {
             res.status(404).sendFile(
                 path.join(__dirname, "../public", "404.html")
