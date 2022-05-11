@@ -99,6 +99,8 @@ router.get("/:username/dashboard", async (req, res) => {
             user.get({ plain: true })
             );
 
+            collectionData.userName = req.session.userName;
+
             res.render('dashboard', {
                 collectionData,
                 loggedIn: req.session.loggedIn,
@@ -134,8 +136,8 @@ router.get("/:username/collections/:id", async (req, res) => {
 
         res.render("collection", {
             collection,
-            loggedIn: req.session.loggedIn,
-            userName: req.session.userName
+            // loggedIn: req.session.loggedIn,
+            // userName: req.session.userName
         });
     } catch (err) {
         res.status(500).json(err);
@@ -186,13 +188,5 @@ router.get("/about", async (req, res) => {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
 });
-
-router.get("/upload", async(req, res) => {
-    res.render("photoUpload")
-})
-
-router.get("/image", async(req, res) => {
-    res.render("uploaded")
-})
 
 module.exports = router;

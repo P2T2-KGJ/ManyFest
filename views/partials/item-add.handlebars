@@ -28,13 +28,13 @@
                         <input
                             type="text"
                             class="form-control mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="itemName"
+                            name="iname"
                             placeholder="Item Name"
                         />
 
                         <textarea
                             class="form-control mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="itemDescription"
+                            name="itemDescription"
                             rows="3"
                             placeholder="Description"
                         ></textarea>
@@ -42,25 +42,20 @@
                         <input
                             type="text"
                             class="form-control mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="itemPrice"
+                            name="itemPrice"
                             placeholder="Item Price?"
                         />
 
                         <input
                             id="image"
                             type="file"
-                            class="form-control mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            class="form-control mb-4 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             accept=".jpg,.jpeg,.png,.svg,.webp,image/*"
                             name="uploaded_image"
                         />
 
-                        <input
-                            id="image-name"
-                            type="text"
-                            class="form-control mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Image description"
-                            name="desc"
-                        />
+                        <input type="hidden" name="collection_id" value="{{collection.id}}" />
+
                     </div>
 
                     <div
