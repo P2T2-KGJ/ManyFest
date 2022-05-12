@@ -13,11 +13,14 @@ aria-hidden="true">
         <form>
             <div class="modal-body relative p-4">
               <p>Please note: <span class="text-red-800">This cannot be reversed</span></p>
+              <p class="hidden" id="deleteName">{{collection.name}}</p>
+              <p class="hidden" id="deleteId">{{collection.id}}</p>
+              <p class="hidden" id="username">{{collection.id}}</p>{{log collection}}
               <p class="pt-4" id="deleteName">Please confirm the collection name ('{{collection.name}}') to complete the deletion.</p>
             </div>
             <div class="modal-body relative p-4">
                <input type="text" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="collectionName">
+              id="typedName">
             </div>
 
           <div class="flex flex-shrink-0 flex-wrap items-center justify-end px-4 border-gray-200 rounded-b-md">
@@ -31,3 +34,5 @@ aria-hidden="true">
     </div>
   </div>
 </div>
+
+<script src="/js/deleteCollection.js"></script>
