@@ -36,22 +36,21 @@ router.post(
     upload.single("uploaded_image"),
     async (req, res) => {
         try {
-            const itemData = await Item.create({
+            const item = await Item.create({
                 name: req.body.iname,
                 description: req.body.description,
-                collection_id: req.body.collection_id
+                collection_id: req.body.collectionId
             });
 
-            const imageData = await Image.create({
+            const image = await Image.create({
                 name: req.file.originalname,
                 description: req.body.description,
                 link: req.file.location,
                 AWS_key: req.key,
-                item_id: imageData.id,
+                item_id: item.id,
             });
-            // const image = imageData.get({ plain: true });
             console.log("REQUEST BODY", req.body);
-            // res.render(`/${session.username}/collections/`)
+            res.redirect(`/${req.session.userName}/dashboard`)
         } catch (err) {
             res.status(400).json(err);
         }

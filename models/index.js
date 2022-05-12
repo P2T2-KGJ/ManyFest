@@ -18,14 +18,14 @@ Collection.hasMany(Item, {
     onDelete: "CASCADE",
 });
 
-Item.hasMany(Image, {
-    foreignKey: "item_id",
-    onDelete: "CASCADE",
-});
-
 Item.belongsTo(Collection, {
     foreignKey: "collection_id",
     unique: false,
+});
+
+Item.hasMany(Image, {
+    foreignKey: "item_id",
+    onDelete: "CASCADE",
 });
 
 Image.belongsTo(Item, {
