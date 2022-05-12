@@ -136,7 +136,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
         }
 
         const collection = collectionData.get({ plain: true });
-        // collection.collectionId = req.params.id;
+        collection.collectionId = req.params.id;
 
         console.log("COLLECTION LOG:", collection);
 
@@ -176,13 +176,13 @@ router.get("/:username/items/:id", withAuth, async (req, res) => {
 
 // TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
 
-router.get("/upload", withAuth, async (req, res) => {
-    res.render("uploaded", {
-        collectionId: 3,
-        loggedIn: req.session.loggedIn,
-        userName: req.session.userName,
-    });
-});
+// router.get("/upload", withAuth, async (req, res) => {
+//     res.render("uploaded", {
+//         collectionId: 3,
+//         loggedIn: req.session.loggedIn,
+//         userName: req.session.userName,
+//     });
+// });
 
 // TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
 
