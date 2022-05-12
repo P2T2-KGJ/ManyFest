@@ -112,6 +112,7 @@ router.get("/:username/dashboard", withAuth, async (req, res) => {
             loggedIn,
             userName,
             email,
+            user
         });
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));

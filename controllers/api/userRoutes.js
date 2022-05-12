@@ -30,18 +30,43 @@ router.get("/:username", async (req, res) => {
             where: { username: req.params.username },
         });
         const user = userData.get({ plain: true });
-        res.status(200).json(user.userId);
+        res.status(201).json(user);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
 // update user
-router.put("/", withAuth, userAuth, async (req, res) => {
+router.put("/:id", /*withAuth, userAuth,*/ async (req, res) => {
     // update user logic
     try {
+        const userData = await User.update(req.body, {
+            where: {
+                id: req.params.id
+            },
+          });
+
+        if (!userData) {
+        res.status(404).json({ message: 'No user with this id!' });
+        return;
+        }
+
+
+        // Attempted to update session data when username updated as username from the dashboard was driven by the session data. In lieu added user data tto the dashboard page and loaded info via the user.
+        // if (req.session.loggedIn) {
+        //     req.session.regenerate(() => {
+
+        //         // req.session.userId = req.params.id;
+        //         // req.session.loggedIn = true;
+        //         req.session.userName = req.body.username;
+
+        //      })
+        //     }
+        res.status(201).json(userData);
+        console.log(req.session)
     } catch (err) {
         res.status(500).json(err);
+        console.log(err)
     }
 });
 
