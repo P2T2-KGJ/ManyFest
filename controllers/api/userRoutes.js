@@ -53,17 +53,14 @@ router.put("/:id", /*withAuth, userAuth,*/ async (req, res) => {
 
 
         // Attempted to update session data when username updated as username from the dashboard was driven by the session data. In lieu added user data tto the dashboard page and loaded info via the user.
-        // if (req.session.loggedIn) {
-        //     req.session.regenerate(() => {
+        if (req.session.loggedIn) {
 
-        //         // req.session.userId = req.params.id;
-        //         // req.session.loggedIn = true;
-        //         req.session.userName = req.body.username;
+            req.session.userName = req.body.username;
 
-        //      })
-        //     }
-        res.status(201).json(userData);
+            }
         console.log(req.session)
+        res.status(201).json(userData);
+
     } catch (err) {
         res.status(500).json(err);
         console.log(err)

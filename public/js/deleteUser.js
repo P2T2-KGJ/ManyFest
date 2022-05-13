@@ -1,6 +1,4 @@
-const userWarning = document.querySelector("#matchWarning");
-
-const deleteCollectionHandler = async (event) => {
+const deleteUserHandler = async (event) => {
     event.preventDefault();
 
     const typedName = document.querySelector("#typedName").value.trim();
@@ -21,14 +19,13 @@ const deleteCollectionHandler = async (event) => {
             document.location.replace(`/dashboard`);
         }
     }
-    else {
-            userWarning.textContent = "Please ensure the collection names match. (Punctuation counts)";
-        }
+        else {
+            console.log("nope")}
 
     };
 
 
 
 document
-    .querySelector("#deleteButton")
-    .addEventListener("click", deleteCollectionHandler);
+    .querySelector("#deleteUserButton")
+    .addEventListener("click", deleteUserHandler);

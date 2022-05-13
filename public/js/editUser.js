@@ -17,7 +17,7 @@ const editUserHandler = async (event) => {
     if (!response.ok) {
         console.log("Please review input information.")
     } else {
-        location.reload();
+        document.location.replace(`/${username}/dashboard`);
     }
 };
 
