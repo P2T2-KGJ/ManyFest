@@ -43,6 +43,12 @@ router.post(
                 description: req.body.itemDescription,
                 collection_id: req.body.collectionId
             });
+        
+console.log("LOGGING FILE", req.file)
+
+            if (!req.file) {
+                return res.redirect(`/${req.session.userName}/collections/${req.body.collectionId}`)
+            }
 
             const image = await Image.create({
                 name: req.file.originalname,
