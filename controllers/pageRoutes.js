@@ -139,6 +139,14 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
         collection.collectionId = req.params.id;
 
         console.log("COLLECTION LOG:", collection);
+        collection.items.forEach(item => {
+            if(!item.images.length){
+                item.images = [{
+                    description: "No image available",
+                    link: "https://manyfest.s3.amazonaws.com/Placeholder-Image.png"
+                }]
+            }
+        });
 
         res.render("collection", {
             collection,
