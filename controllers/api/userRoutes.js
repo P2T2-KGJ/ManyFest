@@ -37,7 +37,7 @@ router.get("/:username", async (req, res) => {
 });
 
 // update user
-router.put("/:id", /*withAuth, userAuth,*/ async (req, res) => {
+router.put("/:id", withAuth, /*userAuth,*/ async (req, res) => {
     // update user logic
     try {
         const userData = await User.update(req.body, {
@@ -68,7 +68,7 @@ router.put("/:id", /*withAuth, userAuth,*/ async (req, res) => {
 });
 
 // delete user
-router.delete("/", withAuth, userAuth, async (req, res) => {
+router.delete("/", withAuth, /*userAuth,*/ async (req, res) => {
     try {
         const userData = await User.destroy({
             where: {
