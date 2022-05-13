@@ -6,6 +6,8 @@
 
 Collection tracking and sharing website, where a user can add, edit, and delete items and collections.
 
+Application utilizes node, express, express-session, aws-sdk, bcrypt, handlebars, multer, sequilize, mysql and tw-elements.
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -48,7 +50,15 @@ $ npm start
 
 ## Usage
 
-to-do
+The application demostrates our ability to create and deploy an application using backend frameworks via node/express representing ORM and MVC.
+
+The application links to a database storing user, collection, item, and image information.
+
+Users are able to signup. Passwords are stored on the database encrypted via bcrypt. Users are also able to update their username/email address via the dashboard.
+
+User can view their list of collections via the dashboard, along with create additional collections, or viewing currently held lists.
+
+From the collection area, collections can be edited or deleted, and additional items can be added to the currently selected list. When adding a collection item, a user can choose to upload an associated photo (stored via AWS-S3).
 
 ## Contact
 
