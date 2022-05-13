@@ -4,7 +4,6 @@ const path = require("path");
 const { Collection, Item, User, Image } = require("../models");
 const { withAuth, userAuth } = require("../utils/auth");
 
-
 // routes for rendering the pages go here
 // depending on how many we have, may want to break these out into separate files
 
@@ -24,6 +23,7 @@ router.get("/", async (req, res) => {
             // will need to be updated once we figure out photos
             order: [["id", "DESC"]],
             limit: 5,
+            // where: { private: false },
 
             // needs logic for private = false
         });
@@ -55,7 +55,7 @@ router.get("/", async (req, res) => {
 router.get("/login", (req, res) => {
     if (req.session.loggedIn) {
         // do we want to send people to the front page, or to their dashboard?
-        res.redirect("/");
+        res.redirect(`/${req.session.userName}/dashboard`);
         return;
     }
     res.render("login");
@@ -65,115 +65,135 @@ router.get("/login", (req, res) => {
 router.get("/signup", (req, res) => {
     if (req.session.loggedIn) {
         // do we want to send people to the front page, or to their dashboard?
-        res.redirect("/:username/dashboard");
+        res.redirect(`/${req.session.userName}/dashboard`);
         return;
     }
     res.render("signup");
 });
 
+// redirect to user/dashboard
+router.get("/dashboard", withAuth, async (req, res) => {
+    res.redirect(`/${req.session.userName}/dashboard`);
+});
+
 // user dashboard - with collections rendered, no items
-// button to create new collection
-// could be its own page, or could be handled client side with a modal
-// think about mobile-friendly here
-router.get("/:username/dashboard", async (req, res) => {
-        // username needs to be a valid user that is connected to the session
-        // maybe this is middleware?
-        // otherwise we can use a function to validate
-        // either way we need to capture the userID
-        // if we use a function, should return a userId or false, such as
-        // const userId = await validUser(req.params.username)
-        // either way, we probably need to add a parameter to session to identify the user
+router.get("/:username/dashboard", withAuth, async (req, res) => {
+    try {
+        const userName = req.session.userName;
+        const loggedIn = req.session.loggedIn;
 
-        // then needs to get all collections by user id, no items
-        try {
-            const dbCollectionData = await Collection.findAll({
-                where: {
-                    user_id: req.session.userId,
-                },
-                include: [
-                    { model: User}
-                ],
-                order: [["id", "DESC"]],
-            })
+        const collectionData = await Collection.findAll({
+            where: {
+                user_id: req.session.userId,
+            },
+            order: [["id", "DESC"]],
+        });
 
-            const collectionData = dbCollectionData.map((user) =>
-            user.get({ plain: true })
-            );
+        const userData = await User.findByPk(req.session.userId);
+        const user = userData.get({ plain: true });
+        const email = user.email;
 
-            collectionData.userName = req.session.userName;
-
-            res.render('dashboard', {
-                collectionData,
-                loggedIn: req.session.loggedIn,
-                userName: req.session.userName
+        if (!collectionData) {
+            res.render("dashboard", {
+                email,
+                loggedIn,
+                userName,
             });
+        }
 
+        const collections = collectionData.map((collection) =>
+            collection.get({ plain: true })
+        );
 
+        collections.userName = userName;
+
+        res.render("dashboard", {
+            collections,
+            loggedIn,
+            userName,
+            email,
+            user
+        });
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
     }
 });
 
-// single collection view - with item names, maybe pictures? no details
-// can handle item inspection on the client side, with a modal
-// or have page for looking at single items
-// consider mobile users
+// redirect to user/collection/:id
+router.get("/collections/:id", withAuth, async (req, res) => {
+    res.redirect(`/${req.session.userName}/collections/${req.params.id}`);
+});
 
 // render all items in a collection
-router.get("/:username/collections/:id", async (req, res) => {
+router.get("/:username/collections/:id", withAuth, async (req, res) => {
     try {
         // this will need the same verification/authorization as the dashboard
         const collectionData = await Collection.findByPk(req.params.id, {
-            include: [ { model: Item } ],
+            include: [{ model: Item, include: [{ model: Image }] }],
         });
 
         if (!collectionData) {
-            res.status(404).sendFile(
-                path.join(__dirname, "../public", "404.html")
-                );
-            }
+            res.redirect(`/${req.session.userName}/dashboard`);
+        }
 
-            const collection = collectionData.get({ plain: true });
+        const collection = collectionData.get({ plain: true });
+        collection.collectionId = req.params.id;
+
+        console.log("COLLECTION LOG:", collection);
+        collection.items.forEach(item => {
+            if(!item.images.length){
+                item.images = [{
+                    description: "No image available",
+                    link: "https://manyfest.s3.amazonaws.com/Placeholder-Image.png"
+                }]
+            }
+        });
 
         res.render("collection", {
             collection,
-            // loggedIn: req.session.loggedIn,
-            // userName: req.session.userName
+            loggedIn: req.session.loggedIn,
+            userName: req.session.userName,
         });
     } catch (err) {
-        res.status(500).json(err);
+        res.redirect(`/${req.session.userName}/dashboard`);
     }
 });
 
-// item by id
-// this page should have the option to edit the item
-// do we want to handle that on-page client side, or render a new page for it
-router.get("/:username/items/:id", async (req, res) => {
+// view item by id
+router.get("/:username/items/:id", withAuth, async (req, res) => {
     // needs the same verification/authorization as the dashboard & collections pages
     try {
         const itemData = await Item.findByPk(req.params.id, {
-            include: [{ model: Image}]
+            include: [{ model: Image }],
         });
-        // when we figure out images, that will need to be included
 
         if (!itemData) {
-            res.status(404).sendFile(
-                path.join(__dirname, "../public", "404.html")
-            );
+            res.redirect(`/${req.session.userName}/dashboard`);
         }
 
         const item = itemData.get({ plain: true });
 
-        // will this be a full page render, or handled client side?
         res.render("item", {
             item,
             loggedIn: req.session.loggedIn,
-            userName: req.session.userName
+            userName: req.session.userName,
         });
     } catch (err) {
-        res.status(500).json(err);
+        res.redirect(`/${req.session.userName}/dashboard`);
     }
 });
+
+// TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
+
+// router.get("/upload", withAuth, async (req, res) => {
+//     res.render("uploaded", {
+//         collectionId: 3,
+//         loggedIn: req.session.loggedIn,
+//         userName: req.session.userName,
+//     });
+// });
+
+// TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
 
 // about us page
 // hard coded information?
@@ -183,7 +203,7 @@ router.get("/about", async (req, res) => {
     try {
         res.render("about", {
             loggedIn: req.session.loggedIn,
-            userName: req.session.userName
+            userName: req.session.userName,
         });
     } catch (err) {
         res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));

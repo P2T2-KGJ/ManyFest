@@ -10,12 +10,6 @@ class Collection extends Model {}
 
 Collection.init(
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -24,8 +18,6 @@ Collection.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        // changed this to private instead of public, because public feels like it should be the default
-        // added default value so that if no value is passed, it will not reject the addition
         private: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,

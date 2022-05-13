@@ -1,10 +1,10 @@
 const addCollectionHandler = async (event) => {
-
     const name = document.querySelector("#collection").value.trim();
-    const description = document.querySelector("#collectionDescription").value.trim();
-    const private = document.querySelector('#collectionPrivate:checked') ? true : false;
-    const username = document.querySelector('#userName').innerText;
-    console.log(document.getElementById('userName').innerText);
+    const description = document
+        .querySelector("#collectionDescription")
+        .value.trim();
+    const private = document.querySelector("#collectionPrivate").checked;
+    const username = document.querySelector("#username").innerText;
 
     // make sure a collection name has been provided at a minimum.
     if (!name) {
@@ -12,16 +12,18 @@ const addCollectionHandler = async (event) => {
         return;
     }
 
+    const user_id = await fetch(`/users/${username}`);
+
     const response = await fetch("/api/collections", {
         method: "POST",
-        body: JSON.stringify({name, description, private}),
+        body: JSON.stringify({ name, description, private, user_id }),
         headers: { "Content-Type": "application/json" },
     });
 
     if (!response.ok) {
-        alert("Please review input information.")
+        alert("Please review input information.");
     } else {
-        document.location.replace(`/${username}/dashboard`);
+        document.location.replace(`/dashboard`);
     }
 };
 

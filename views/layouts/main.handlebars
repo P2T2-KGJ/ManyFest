@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/css/output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
@@ -47,29 +46,26 @@
         </svg>
       </button>
       <div class="items-center flex-grow collapse navbar-collapse" id="navbarSupportedContent">
-        <a class="flex items-center mt-2 mr-1 text-gray-900 hover:text-gray-900 focus:text-gray-900 lg:mt-0" href="#">
+        <a class="flex items-center mt-2 mr-1 text-gray-900 hover:text-gray-900 focus:text-gray-900 lg:mt-0" href="/">
           <!-- Navbar image -->
           <img src="/images/Manyfest.png" style="height: 60px" alt="ManyFest"
             loading="lazy" />
         </a>
         <!-- Left links -->
         <ul class="flex flex-col pl-0 mr-auto navbar-nav list-style-none">
-            <li class="p-2 nav-item">
-                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" href="/">Homepage</a>
-            </li>
 
             {{#unless loggedIn}}
             <li class="p-2 nav-item">
                 <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "login" href="/login">Login</a>
             </li>
             <li class="p-2 nav-item">
-                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "login" href="/signup">Sign Up</a>
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "signup" href="/signup">Sign Up</a>
             </li>
             {{/unless}}
 
             {{#if loggedIn}}
             <li class="p-2 nav-item">
-                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" href="/{{userName}}/dashboard">My Dashboard</a>
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" href="/{{userName}}/dashboard">Dashboard</a>
             </li>
             {{/if}}
             <li class="p-2 nav-item">
@@ -83,7 +79,7 @@
         {{#if loggedIn}}
         <ul>
             <li class="p-2 nav-item">
-                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id="logout">Logout</a>
+                <a class="p-0 text-gray-500 cursor-pointer nav-link hover:text-gray-700 focus:text-gray-700" id="logout">Logout</a>
             </li>
         </ul>
         {{/if}}
@@ -96,7 +92,6 @@
   {{#if loggedIn}}
       <script src="/js/logout.js"></script>
   {{/if}}
-  {{!-- <script src="/node_modules/"></script> --}}
 </body>
 
 </html>

@@ -1,27 +1,33 @@
+const userWarning = document.querySelector("#matchWarning");
+
 const deleteCollectionHandler = async (event) => {
     event.preventDefault();
 
-    const name = document.querySelector("#deleteName").value.trim();
-    console.log(name)
-    // const description = document.getElementById("collectionDescription").value.trim();
-    // const private = document.querySelector('#collectionPrivate:checked') ? true : false;
-    // const id = document.querySelector('#collectionId').innerText;
+    const typedName = document.querySelector("#typedName").value.trim();
+    const collectionName = document.querySelector("#deleteName").innerText;
+    const collectionId = document.querySelector("#deleteId").innerText;
+    console.log(typedName, collectionName)
 
-    // console.log(name, description)
 
-    // const response = await fetch(`/api/collections/${id}`, {
-    //     method: "DELETE",
-    //     body: JSON.stringify({name, description, private}),
-    //     headers: { "Content-Type": "application/json" },
-    // });
-    // console.log(response);
+    if (typedName === collectionName) {
+        const response = await fetch(`/api/collections/${collectionId}`, {
+            method: "DELETE",
+            body: JSON.stringify({collectionId}),
+            headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+            console.log("Please review input information.")
+        } else {
+            document.location.replace(`/dashboard`);
+        }
+    }
+    else {
+            userWarning.textContent = "Please ensure the collection names match. (Punctuation counts)";
+        }
 
-    // if (!response.ok) {
-    //     console.log("Please review input information.")
-    // } else {
-    //     location.reload();
-    // }
-};
+    };
+
+
 
 document
     .querySelector("#deleteButton")

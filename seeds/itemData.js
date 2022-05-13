@@ -5,7 +5,7 @@ const itemdata = [
         name: "Witches Brew",
         description:
             "5oz wood-wicked candle, scent of cinnamon, sandalwood, fall",
-        price: 17,
+        // price: 17,
         collection_id: 3,
     },
     {

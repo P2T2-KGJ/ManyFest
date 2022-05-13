@@ -13,9 +13,9 @@ Item.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        price: {
-            type: DataTypes.INTEGER,
-        },
+        // price: {
+        //     type: DataTypes.INTEGER,
+        // },
         collection_id: {
             type: DataTypes.INTEGER,
             references: {

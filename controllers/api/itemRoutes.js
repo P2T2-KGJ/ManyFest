@@ -3,7 +3,7 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const aws = require("aws-sdk");
 const { Item, Image } = require("../../models");
-const { withAuth, userAuth } = require("../../utils/auth");
+const { withAuth } = require("../../utils/auth");
 
 // establish connection to AWS S3 account
 const s3 = new aws.S3({
@@ -28,30 +28,36 @@ const upload = multer({
     }),
 });
 
-// create new item
+// // create new item
 router.post(
     "/",
     withAuth,
-    userAuth,
     upload.single("uploaded_image"),
     async (req, res) => {
+        console.log("================================")
+        console.log("REQUEST BODY", req.body);
+        console.log("================================")
         try {
-            const itemData = await Item.create({
+            const item = await Item.create({
                 name: req.body.iname,
-                description: req.body.description,
-                collection_id: req.body.collection_id
+                description: req.body.itemDescription,
+                collection_id: req.body.collectionId
             });
+        
+console.log("LOGGING FILE", req.file)
 
-            const imageData = await Image.create({
+            if (!req.file) {
+                return res.redirect(`/${req.session.userName}/collections/${req.body.collectionId}`)
+            }
+
+            const image = await Image.create({
                 name: req.file.originalname,
-                description: req.body.description,
+                description: req.body.itemDescription,
                 link: req.file.location,
                 AWS_key: req.key,
-                item_id: imageData.id,
+                item_id: item.id,
             });
-            // const image = imageData.get({ plain: true });
-            console.log("REQUEST BODY", req.body);
-            // res.render(`/${session.username}/collections/`)
+            res.redirect(`/${req.session.userName}/collections/${req.body.collectionId}`)
         } catch (err) {
             res.status(400).json(err);
         }
@@ -60,39 +66,39 @@ router.post(
 );
 
 // edit existing item by id
-router.put("/:id", withAuth, userAuth, async (req, res) => {
-    try {
-        const itemData = await Item.update(req.body, {
-            where: {
-                id: req.params.id,
-            },
-        });
-        if (!itemData[0]) {
-            res.status(404).json({ message: "No item with this id!" });
-            return;
-        }
-        res.status(200).json(itemData);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+// router.put("/:id", withAuth, async (req, res) => {
+//     try {
+//         const itemData = await Item.update(req.body, {
+//             where: {
+//                 id: req.params.id,
+//             },
+//         });
+//         if (!itemData[0]) {
+//             res.status(404).json({ message: "No item with this id!" });
+//             return;
+//         }
+//         res.status(200).json(itemData);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
-// delete an item by id
-router.delete("/:id", withAuth, userAuth, async (req, res) => {
-    try {
-        const itemData = await Item.destroy({
-            where: {
-                id: req.params.id,
-            },
-        });
-        if (!itemData) {
-            res.status(404).json({ message: "No item with this id!" });
-            return;
-        }
-        res.status(200).json(itemData);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+// // delete an item by id
+// router.delete("/:id", withAuth, userAuth, async (req, res) => {
+//     try {
+//         const itemData = await Item.destroy({
+//             where: {
+//                 id: req.params.id,
+//             },
+//         });
+//         if (!itemData) {
+//             res.status(404).json({ message: "No item with this id!" });
+//             return;
+//         }
+//         res.status(200).json(itemData);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
 module.exports = router;

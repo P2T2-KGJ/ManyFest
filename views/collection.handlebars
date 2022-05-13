@@ -1,52 +1,37 @@
-{{!-- this page would be for displaying the contents of a single collection
-        should have a button on it for either a link to a page with a form to add a new item
-        or could have the form render directly on the page. Could be visible immediately
-        or we could have it hidden and use client-side JS to make it visible with a button click
-        or we could have the form pop up in a modal
-
-        could also give the option to delete items directly from this page, or could leave that to the item-details
-        probably should have an option to delete the entire collection as well, with some sort of confirmation--}}
-
-<section class="overflow-hidden text-gray-700 py-8">
-  <div class="flex align-center justify-center">
-    <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 pl-8">{{collection.name}}</h2>
-    <span class="hidden" id="collectionId">{{collection.id}}</span>
-    <button type="button" class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
-    <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#editCollectionModal">Edit collection</button>
-    <button type="button" class="inline-block px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out ml-8" data-bs-toggle="modal" data-bs-target="#deleteCollectionModal">Delete collection</button>
-  </div>
-  <div class="flex flex-col col-6">
-
-
-
-      {{> item-add}}
-      {{> collection-edit}}
-      {{> collection-delete}}
-
-  </div>
-</section>
-<section class="overflow-hidden text-gray-700 ">
-  <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
-    <div class="flex flex-wrap -m-1 md:-m-2">
-
-                {{#each collection.items as |items|}}
-
-                <div class="flex flex-wrap w-1/3">
-                        <div class="w-full p-1 md:p-2">
-                                <a href = '../items/{{id}}'>
-
-                                {{> collection-image}}
-
-                                </a>
+<div class="container px-4 mx-auto">
+        <section class="py-8 overflow-hidden text-gray-700">
+                <div class="flex flex-col justify-centeralign-center">
+                        <h2 class="mt-0 mb-2 text-4xl font-medium leading-tight ">{{collection.name}}</h2>
+                        {{!-- <span class="hidden" id="collectionId">{{collection.id}}</span> --}}
+                        <div>
+                                <button type="button"
+                                        class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                        data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
+                                {{!-- <button type="button"
+                                        class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8"
+                                        data-bs-toggle="modal" data-bs-target="#editCollectionModal">Edit
+                                        collection</button>
+                                <button type="button"
+                                        class="inline-block px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out ml-8"
+                                        data-bs-toggle="modal" data-bs-target="#deleteCollectionModal">Delete
+                                        collection</button> --}}
                         </div>
-                        <div class="pl-2 pt-2">
-                                <div class="pb-2">{{name}}</div>
-                                <div>{{description}}</div>
-                        </div>
-
                 </div>
-
-                {{/each}}
-        </div>
+                {{!-- <div class="flex flex-col col-6"> --}}
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
+                        {{> collection-edit}}
+                        {{> collection-delete}}
+                </div>
+        </section>
+        <section class="mx-auto mb-4">
+                <div class="container grid grid-cols-1 gap-4 p-6 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
+                        {{!-- <div class="flex flex-wrap"> --}}
+                                {{#if collection.items}}
+                                {{#each collection.items as |item|}}
+                                {{> item-card}}
+                                {{/each}}
+                                {{/if}}
+                        {{!-- </div> --}}
+                </div>
+        </section>
 </div>
-</section>

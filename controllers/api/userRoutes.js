@@ -23,39 +23,68 @@ router.post("/", async (req, res) => {
     }
 });
 
-// update user
-router.put("/", withAuth, userAuth, async (req, res) => {
-    // update user logic
+// get user by username
+router.get("/:username", async (req, res) => {
     try {
+        const userData = await User.findOne({
+            where: { username: req.params.username },
+        });
+        const user = userData.get({ plain: true });
+        res.status(201).json(user);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-// delete user
-router.delete(
-    "/",
-    withAuth, userAuth, async (req, res) => {
+// update user
+router.put("/:id", withAuth, /*userAuth,*/ async (req, res) => {
+    // update user logic
+    try {
+        const userData = await User.update(req.body, {
+            where: {
+                id: req.params.id
+            },
+          });
 
-        try {
-            const userData = await User.destroy({
-                where: {
-                    id: req.body.userId,
-                },
-            });
-            if (!userData) {
-                res.status(404).json({ message: "User does not exist." });
-            }
-            req.session.destroy(() => {
-                res.status(200).json({ message: "User successfully deleted." });
-            })
-            
-
-        } catch (err) {
-            res.status(500).json(err);
+        if (!userData) {
+        res.status(404).json({ message: 'No user with this id!' });
+        return;
         }
+
+
+        // Attempted to update session data when username updated as username from the dashboard was driven by the session data. In lieu added user data tto the dashboard page and loaded info via the user.
+        if (req.session.loggedIn) {
+
+            req.session.userName = req.body.username;
+
+            }
+        console.log(req.session)
+        res.status(201).json(userData);
+
+    } catch (err) {
+        res.status(500).json(err);
+        console.log(err)
     }
-);
+});
+
+// delete user
+router.delete("/", withAuth, /*userAuth,*/ async (req, res) => {
+    try {
+        const userData = await User.destroy({
+            where: {
+                id: req.body.userId,
+            },
+        });
+        if (!userData) {
+            res.status(404).json({ message: "User does not exist." });
+        }
+        req.session.destroy(() => {
+            res.status(200).json({ message: "User successfully deleted." });
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 // Login
 router.post("/login", async (req, res) => {
