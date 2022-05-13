@@ -13,7 +13,19 @@ const { withAuth, userAuth } = require("../utils/auth");
 router.get("/", async (req, res) => {
     try {
         const recentItemData = await Item.findAll({
-            include: [{ model: Collection }],
+            include: [{
+                model: Collection,
+                    where: {
+                        private: false}
+
+                    },
+                    {
+                        model:Image,
+                        required: true
+                    }
+        ],
+
+
             // I dont think we need to include collections here,
             // we're just looking for the most recently added items
 
@@ -23,14 +35,17 @@ router.get("/", async (req, res) => {
             // will need to be updated once we figure out photos
             order: [["id", "DESC"]],
             limit: 5,
-            // where: { private: false },
+
 
             // needs logic for private = false
+            // where: { private: false },
         });
 
         const itemData = recentItemData.map((item) =>
             item.get({ plain: true })
         );
+
+        console.log(itemData[0].images)
 
         if (!itemData) {
             // what do we do if nothing satisfies this condition?
@@ -139,7 +154,7 @@ router.get("/:username/collections/:id", withAuth, async (req, res) => {
         const collection = collectionData.get({ plain: true });
         collection.collectionId = req.params.id;
 
-        console.log("COLLECTION LOG:", collection);
+        // console.log("COLLECTION LOG:", collection);
         collection.items.forEach(item => {
             if(!item.images.length){
                 item.images = [{
