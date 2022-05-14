@@ -60,7 +60,7 @@
                 <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "login" href="/login">Login</a>
             </li>
             <li class="p-2 nav-item">
-                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "signup" href="/signup">Sign Up</a>
+                <a class="p-0 text-gray-500 nav-link hover:text-gray-700 focus:text-gray-700" id = "signup" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Sign Up</a>
             </li>
             {{/unless}}
 
@@ -88,6 +88,7 @@
   </nav>
 
     {{{body}}}
+    {{> signup-modal}}
 
   <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
   {{#if loggedIn}}
