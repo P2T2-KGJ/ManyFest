@@ -4,12 +4,15 @@ const fieldWarning = document.querySelector("#fields-warning");
 
 const signupFormHandler = async (event) => {
     event.preventDefault();
-
-    const username = document.querySelector("#userName").value.trim();
-    const email = document.querySelector("#emailAddress").value.trim();
-    const password = document.querySelector("#password").value.trim();
+    userWarning.textContent = ""
+    passwordWarning.textContent = ""
+    fieldWarning.textContent = ""
+    
+    const username = document.querySelector("#signup-name").value.trim();
+    const email = document.querySelector("#signup-email").value.trim();
+    const password = document.querySelector("#signup-password").value.trim();
     const passConfirm = document
-        .querySelector("#password-confirm")
+        .querySelector("#signup-password-confirm")
         .value.trim();
 
     // make sure all fields are filled out
@@ -17,15 +20,18 @@ const signupFormHandler = async (event) => {
         fieldWarning.textContent = "All fields must be filled out.";
         return;
     }
+
+    // make sure password is at least 8 characters long
+    if (password.length < 8) {
+        passwordWarning.textContent =
+            "Password must be at least 8 characters long";
+            return;
+    }
+
     // make sure password matches
     else if (password !== passConfirm) {
         passwordWarning.textContent = "Password must match.";
         return;
-    }
-    // make sure password is at least 8 characters long
-    else if (password.length < 8) {
-        passwordWarning.textContent =
-            "Password must be at least 8 characters long";
     }
 
     const response = await fetch("/api/users", {
@@ -44,5 +50,5 @@ const signupFormHandler = async (event) => {
 };
 
 document
-    .querySelector("#submit-button")
+    .querySelector("#signup-submit-button")
     .addEventListener("click", signupFormHandler);

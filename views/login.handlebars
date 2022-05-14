@@ -1,52 +1,35 @@
-{{! login form - could be a full page, or a partial for a modal
-
-        this could contain just the login form, or could be both login/signup
-        which form could be switched by a button client-side
-
-        if modal, we'll want a sign-in partial as well}}
-
+<title>ManyFest - Login</title>
 <section class="h-screen login-form">
     <div class="h-full px-6 text-gray-800">
         <div class="flex flex-wrap items-center justify-center h-3/4 md:h-full xl:justify-center lg:justify-around g-6">
-            <div class="justify-center my-5 lg:mb-12 grow-0 shrink-1 md:shrink-1 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 md:mb-0">
-                <img
-                    src="/images/Manyfest.png"
-                    class="max-w-xl md:max-w-lg h-60 md:h-80"
-                    alt="ManyFest Logo"
-                />
+            <div
+                class="justify-center my-5 lg:mb-12 grow-0 shrink-1 md:shrink-1 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 md:mb-0">
+                <img src="/images/Manyfest.png" class="max-w-xl md:max-w-lg h-60 md:h-80" alt="ManyFest Logo" />
             </div>
             <div class="">
                 <form>
                     <div class="flex flex-row items-center justify-center lg:justify-start">
-                        <p class="mb-0 mb-6 mr-4 text-lg">Sign in:</p>
+                        <p class="mb-6 mr-4 text-lg">Sign in:</p>
                     </div>
 
-            <!-- Email input -->
-            <div class="mb-6">
-                <input
-                    type="text"
-                    class="block w-full px-4 py-2 m-0 text-xl font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    id="email"
-                    placeholder="Email address"
-                    value="freya@email.com"
-                />
-            </div>
+                    <!-- Email input -->
+                    <div class="mb-6">
+                        <input type="text"
+                            class="block w-full px-4 py-2 m-0 text-xl font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            id="email" placeholder="Email address" value="freya@email.com" />
+                    </div>
 
-            <!-- Password input -->
-            <div class="mb-6">
-                <input
-                    type="password"
-                    class="block w-full px-4 py-2 m-0 text-xl font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    id="password"
-                    placeholder="Password"
-                    value="123password"
-                />
-            </div>
+                    <!-- Password input -->
+                    <div class="mb-6">
+                        <input type="password"
+                            class="block w-full px-4 py-2 m-0 text-xl font-normal text-gray-700 transition ease-in-out bg-white border border-gray-300 border-solid rounded form-control bg-clip-padding focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            id="password" placeholder="Password" value="123password" />
+                    </div>
 
-            <div class="flex items-center justify-between mb-6">
-                <div class="form-group form-check">
-                </div>
-            </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="form-group form-check">
+                        </div>
+                    </div>
 
             <div class="text-center lg:text-left">
                  <div id="user-warning" class="text-sm text-red-700">
@@ -71,6 +54,5 @@
         </div>
     </div>
 </section>
-{{!--
-{{> signup-modal}} --}}
+
 <script src="/js/login.js"></script>
