@@ -1,6 +1,8 @@
 # ManyFest
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub language count](https://img.shields.io/github/languages/count/P2T2-KGJ/KGL)
+![GitHub top language](https://img.shields.io/github/languages/top/P2T2-KGJ/ManyFest)
 
 ## Description
 
@@ -26,7 +28,7 @@ SO THAT I can share them with other, or keep track in a private library.
 
 ## Installation
 
-Running a ManyFest clone will require an ['AWS'](https://aws.amazon.com/) account, as well as access to a MySQL database, while run locally, or via JawsDB while hosted.
+Running a ManyFest clone will require an [AWS](https://aws.amazon.com/) account, as well as access to a MySQL database while run locally, or via JawsDB while hosted.
 
 A `.env` file is required to host sensitive variable information, such as database name, user, password, and AWS S3 bucket information
 
@@ -38,15 +40,15 @@ A `.env` file is required to host sensitive variable information, such as databa
 
 ## Usage
 
-The application demostrates our ability to create and deploy an application using backend frameworks via node/express representing ORM and MVC.
+The application demonstrates our ability to create and deploy an application using front and back-end frameworks using node/express via ORM and using MVC design pattern.
 
 The application links to a database storing user, collection, item, and image information.
 
-Users are able to signup. Passwords are stored on the database encrypted via bcrypt. Users are also able to update their username/email address via the dashboard.
+Users are able to sign up. Passwords are stored on the database encrypted via bcrypt. Users are also able to update their username/email address via the dashboard.
 
-User can view their list of collections via the dashboard, along with create additional collections, or viewing currently held lists.
+Users can view their list of collections via their dashboard, and create additional collections,.
 
-From the collection area, collections can be edited or deleted, and additional items can be added to the currently selected list. When adding a collection item, a user can choose to upload an associated photo (stored via AWS-S3).
+From the collection view page, collections can be edited or deleted, and additional items can be added to the currently selected list. When adding a collection item, a user can choose to upload an associated photo (stored via AWS-S3).
 
 ## Contact
 
