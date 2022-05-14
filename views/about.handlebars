@@ -1,43 +1,36 @@
-{{!-- this could be a static page, or it could be rendered
-        either way, I think we'd be looking at hard-coded information here
-        unless we want to create a model for the team/contributors?
 
-        not priority, but I think it would be fun to have something interesting or personal on this page--}}
+  <div class="container px-6 mx-auto my-24">
+    <section class="mb-32 text-center text-gray-800 lg:text-left">
 
-
-
-  <!-- Container for demo purpose -->
-  <div class="container my-24 px-6 mx-auto">
-    <section class="mb-32 text-gray-800 text-center lg:text-left">
-
-      <div class="grid lg:grid-cols-2 gap-6 xl:gap-12 items-center">
+      <div class="grid items-center gap-6 lg:grid-cols-2 xl:gap-12">
         <div class="mb-6 lg:mb-0">
-          <h2 class="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight">
-            About <br />Many<span class="text-blue-600">Fest</span>
+          <h2 class="text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
+            About <br /><span class="text-blue-600">Many</span>fest
           </h2>
         </div>
         <div class="mb-6 lg:mb-0">
-          <h3 class="uppercase text-3xl text-blue-600 font-bold mb-2">Manifest <span class="text-xl font-normal italic text-slate-600/75 pl-4">noun</span></h3>
-          <p class="text-gray-500 text-lg">
+          <h3 class="mb-2 text-3xl font-bold text-blue-600 uppercase">Manifest <span class="pl-4 text-xl italic font-normal text-slate-600/75">noun</span></h3>
+          <p class="text-lg text-gray-500">
             -- a list of passengers or an invoice of cargo for a vehicle (such as a ship or plane) --
           </p>
-           <p class="text-stone-700 text-2xl pt-5">Many<span class="text-blue-600">Fest</span> is an application dedicated to helping organize all of the lists you may require.</p>
+          <p class="pt-5 text-2xl text-stone-700"><span class="text-blue-600">Many</span>fest is an application dedicated to helping organize all of the lists you may require.</p>
         </div>
       </div>
     </section>
   </div>
+
 <!-- About me section -->
-<div class="container my-24 px-6 mx-auto">
-  <section class="mb-32 text-gray-800 text-center">
-    <h2 class="text-3xl font-bold mb-12">Meet the <u class="text-blue-600">team</u></h2>
+<div class="container px-6 mx-auto my-24">
+  <section class="mb-32 text-center text-gray-800">
+    <h2 class="mb-12 text-3xl font-bold">Meet the <u class="text-blue-600">team</u></h2>
 
     <div class="grid md:grid-cols-3 gap-x-6 lg:gap-x-12">
       <div class="mb-6 lg:mb-0">
-        <div class="bg-white block rounded-lg shadow-lg">
+        <div class="block bg-white rounded-lg shadow-lg">
           <div class="relative overflow-hidden bg-no-repeat bg-cover">
-            <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="w-full rounded-t-lg" />
+            <img src="./images/Kit.jpg" class="w-full rounded-t-lg" />
             <a href="#!">
-              <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"></div>
+              <div class="absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed"></div>
             </a>
             <svg class="absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
               style="left: 0; bottom: 0">
@@ -47,16 +40,16 @@
             </svg>
           </div>
           <div class="p-6">
-            <h5 class="text-lg font-bold mb-4">Kit Glidden</h5>
-            <p class="text-gray-500 mb-4">Fullstack Web Developer</p>
-            <ul class="list-inside flex mx-auto justify-center">
-              <a href="#!" class="px-2">
+            <h5 class="mb-4 text-lg font-bold">Kit Glidden</h5>
+            <p class="mb-4 text-gray-500">Fullstack Web Developer</p>
+            <ul class="flex justify-center mx-auto list-inside">
+              <a href="https://github.com/freyaliesel" class="px-2">
                 <i class="fa-brands fa-github"></i>
               </a>
               <a href="#!" class="px-2">
                 <i class="fa-brands fa-linkedin"></i>
               </a>
-              <a href="#!" class="px-2">
+              <a href="https://www.linkedin.com/in/kelseaglidden/" class="px-2">
               </a>
             </ul>
           </div>
@@ -64,11 +57,11 @@
       </div>
 
       <div class="mb-6 lg:mb-0">
-        <div class="bg-white block rounded-lg shadow-lg">
+        <div class="block bg-white rounded-lg shadow-lg">
           <div class="relative overflow-hidden bg-no-repeat bg-cover">
             <img src="/images/Jesse.png" class="w-full rounded-t-lg" />
             <a href="#!">
-              <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"></div>
+              <div class="absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed"></div>
             </a>
             <svg class="absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
               style="left: 0; bottom: 0">
@@ -78,10 +71,10 @@
             </svg>
           </div>
           <div class="p-6">
-            <h5 class="text-lg font-bold mb-4">Jesse Comeau</h5>
-            <p class="text-gray-500 mb-4">Fullstack Web Developer</p>
-            <ul class="list-inside flex mx-auto justify-center">
-              <ul class="list-inside flex mx-auto justify-center">
+            <h5 class="mb-4 text-lg font-bold">Jesse Comeau</h5>
+            <p class="mb-4 text-gray-500">Fullstack Web Developer</p>
+            <ul class="flex justify-center mx-auto list-inside">
+              <ul class="flex justify-center mx-auto list-inside">
               <a href="https://github.com/JesseComeau" target="/"
               class="px-2">
                 <i class="fa-brands fa-github"></i>
@@ -95,11 +88,11 @@
       </div>
 
       <div class="">
-        <div class="bg-white block rounded-lg shadow-lg">
+        <div class="block bg-white rounded-lg shadow-lg">
           <div class="relative overflow-hidden bg-no-repeat bg-cover">
             <img src="/images/Glenn.png" class="w-full rounded-t-lg" />
             <a href="#!">
-              <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"></div>
+              <div class="absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed"></div>
             </a>
             <svg class="absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
               style="left: 0; bottom: 0">
@@ -109,10 +102,10 @@
             </svg>
           </div>
           <div class="p-6">
-            <h5 class="text-lg font-bold mb-4">Glenn John Cervantes</h5>
-            <p class="text-gray-500 mb-4">Web/Logo designer</p>
-            <ul class="list-inside flex mx-auto justify-center">
-              <ul class="list-inside flex mx-auto justify-center">
+            <h5 class="mb-4 text-lg font-bold">Glenn John Cervantes</h5>
+            <p class="mb-4 text-gray-500">Web/Logo designer</p>
+            <ul class="flex justify-center mx-auto list-inside">
+              <ul class="flex justify-center mx-auto list-inside">
               <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="/" class="px-2">
                 <i class="fa-brands fa-github"></i>
               </a>
