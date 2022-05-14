@@ -10,6 +10,15 @@ Collection tracking and sharing website, where a user can add, edit, and delete 
 
 Application utilizes node, express, express-session, aws-sdk, bcrypt, handlebars, multer, sequilize, mysql and tw-elements.
 
+## User Story
+
+```console
+AS a user I want to be able to catalog many lists of collections I posses.
+I WANT an application that can hold my collections
+SO THAT I can share them with other, or keep track in a private library.
+```
+
+
 ## Table of Contents
 
 - [Installation](#installation)

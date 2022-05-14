@@ -31,18 +31,22 @@
                         </div>
                     </div>
 
-                    <div class="text-center lg:text-left">
-                        <button
-                            class="inline-block py-3 text-sm font-medium leading-snug text-white uppercase transition duration-150 ease-in-out bg-blue-600 rounded shadow-md px-7 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
-                            type="submit">
-                            Login
-                        </button>
-                        <p class="pt-1 mt-2 mb-0 text-sm font-semibold">
-                            Don't have an account?
-                            <br />
-                            <a href="/signup"
-                                class="text-red-600 transition duration-200 ease-in-out hover:text-red-700 focus:text-red-700"
-                                data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign Up!</a>
+            <div class="text-center lg:text-left">
+                 <div id="user-warning" class="text-sm text-red-700">
+                            {{!-- Username or email already in use. --}}
+                        </div>
+                <button
+                    class="inline-block py-3 text-sm font-medium leading-snug text-white uppercase transition duration-150 ease-in-out bg-blue-600 rounded shadow-md px-7 hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg"
+                    type="submit">
+                    Login
+            </button>
+            <p class="pt-1 mt-2 mb-0 text-sm font-semibold">
+                Don't have an account?
+                <br />
+                            <a href="/signup" class="text-red-600 transition duration-200 ease-in-out hover:text-red-700 focus:text-red-700"
+                                {{! data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" }}
+                            >Sign Up!</a>
                         </p>
                     </div>
                 </form>
