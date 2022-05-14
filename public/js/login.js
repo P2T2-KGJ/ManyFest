@@ -1,3 +1,5 @@
+const userWarning = document.querySelector("#user-warning");
+
 const login = async (event) => {
     event.preventDefault();
 
@@ -5,8 +7,8 @@ const login = async (event) => {
     const password = document.getElementById("password").value.trim();
 
     if (!email || !password) {
-        // this should be handled via html element instead of an alert
-        window.alert("email and password fields cannot be empty");
+        userWarning.textContent = "Please pass a username and password";
+        return;
     }
 
     try {
@@ -17,10 +19,9 @@ const login = async (event) => {
         });
         console.log(response);
         if (!response.ok) {
-            // this should be an element of some sort, not a window alert
-            window.alert("Login failed. Please try again.");
-        }
-        window.location.replace(`/dashboard`)
+            userWarning.textContent = "Username and/or password is incorrect.";
+        } else {
+        window.location.replace(`/dashboard`)}
     } catch (err) {
         console.error(err);
     }
