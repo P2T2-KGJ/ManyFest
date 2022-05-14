@@ -4,12 +4,7 @@ const path = require("path");
 const { Collection, Item, User, Image } = require("../models");
 const { withAuth, userAuth } = require("../utils/auth");
 
-// routes for rendering the pages go here
-// depending on how many we have, may want to break these out into separate files
-
 // homepage
-// displays 5? 10? most recently added items that have pictures and are public
-// clicking any of them should redirect to login
 router.get("/", async (req, res) => {
     try {
         const recentItemData = await Item.findAll({
@@ -24,28 +19,13 @@ router.get("/", async (req, res) => {
                         required: true
                     }
         ],
-
-
-            // I dont think we need to include collections here,
-            // we're just looking for the most recently added items
-
-            // do we want to make it so it's only from unique collections?
-
-            // logic for getting the items we want goes here
-            // will need to be updated once we figure out photos
             order: [["id", "DESC"]],
             limit: 5,
-
-
-            // needs logic for private = false
-            // where: { private: false },
         });
 
         const itemData = recentItemData.map((item) =>
             item.get({ plain: true })
         );
-
-        console.log(itemData[0].images)
 
         if (!itemData) {
             // what do we do if nothing satisfies this condition?
@@ -65,8 +45,6 @@ router.get("/", async (req, res) => {
 });
 
 // login
-// could make sign-up its own page
-// could handle both on same page via client-side script
 router.get("/login", (req, res) => {
     if (req.session.loggedIn) {
         // do we want to send people to the front page, or to their dashboard?
@@ -198,22 +176,6 @@ router.get("/:username/items/:id", withAuth, async (req, res) => {
     }
 });
 
-// TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
-
-// router.get("/upload", withAuth, async (req, res) => {
-//     res.render("uploaded", {
-//         collectionId: 3,
-//         loggedIn: req.session.loggedIn,
-//         userName: req.session.userName,
-//     });
-// });
-
-// TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY * TEMPORARY
-
-// about us page
-// hard coded information?
-// could also be a static file
-// something fun here would be nice
 router.get("/about", async (req, res) => {
     try {
         res.render("about", {
