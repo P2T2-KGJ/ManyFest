@@ -1,18 +1,18 @@
 <div
-    class="fixed top-0 left-0 hidden w-full h-full overflow-x-hidden overflow-y-auto outline-none modal fade"
+    class="fixed top-0 left-0 hidden w-full h-full overflow-x-hidden overflow-y-auto outline-none md:inset-0 h-modal modal fade"
     id="image{{id}}"
     tabindex="-1"
     aria-modal="true"
     role="dialog"
 >
     <div
-        class="relative w-auto pointer-events-none modal-dialog modal-dialog-centered"
+        class="relative flex justify-center pointer-events-none md:max-w-4xl modal-dialog modal-dialog-centered"
     >
         <div
-            class="relative flex flex-col w-full text-current bg-white border-none rounded-md shadow-lg outline-none pointer-events-auto modal-content bg-clip-padding"
+            class="relative flex flex-col text-current bg-white border-none rounded-md shadow-lg outline-none pointer-events-auto modal-content bg-clip-padding"
         >
             <div
-                class="flex items-center justify-between flex-shrink-0 p-4 border-b border-gray-200 modal-header rounded-t-md"
+                class="flex items-center justify-between flex-grow-0 flex-shrink-0 p-4 border-b border-gray-200 modal-header rounded-t-md"
             >
                 <h5 class="text-xl font-bold leading-normal text-gray-800">
                     {{name}}
@@ -24,11 +24,11 @@
                     aria-label="Close"
                 ><i class="fa-solid fa-x"></i></button>
             </div>
-            <div class="relative p-4 modal-body">
+            <div class="relative flex justify-center p-4 modal-body">
                 {{#if images}}
                     {{#each images as |image|}}
                         <img
-                            class="w-full rounded-t-lg"
+                            class="object-scale-down rounded-t-lg"
                             src="{{link}}"
                             alt="{{description}}"
                         />
