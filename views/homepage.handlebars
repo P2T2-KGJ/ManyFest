@@ -1,4 +1,26 @@
-<div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
+{{#unless loggedIn }}
+<!-- Jumbotron -->
+<div class="p-6 shadow-lg rounded-lg bg-gray-100 text-gray-700 sm-columns-3">
+  <h2 class="font-semibold text-3xl mb-5">Welcome to ManyFest</h2>
+  <hr class="my-4 border-gray-300 sm-hidden" />
+  <p>
+    Organizing a world of lists into a single application. Feel free to browse the latest additions and login/signup to start your own.
+  </p>
+</div>
+<!-- Jumbotron -->
+{{/unless}}
+{{#if loggedIn}}
+<div class="p-6 shadow-lg rounded-lg bg-gray-100 text-gray-700 sm-columns-3">
+  <h2 class="font-semibold text-3xl mb-5">Welcome back to ManyFest</h2>
+  <hr class="my-4 border-gray-300 sm-hidden" />
+  <p>
+    Browse some of the recently added public collection items.
+  </p>
+</div>
+{{/if}}
+
+{{!-- Carousel --}}
+<div id="carouselExampleCaptions" class="carousel slide relative md-my-auto" data-bs-ride="carousel">
   <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
     <button
       type="button"
@@ -35,10 +57,11 @@
   </div>
   <div class="carousel-inner relative w-full overflow-hidden">
 
-      {{log itemData}}
+      {{!-- Carousel item 1  --}}
+
     <div class="carousel-item active relative float-left w-full">
       <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
+        src="{{itemData.[0].images.[0].link}}"
         class="block w-full"
         alt="..."
       />
@@ -48,54 +71,62 @@
         <p>from the {{itemData.[0].collection.name}} collection.</p>
       </div>
     </div>
+
+    {{!-- Carousel item 2  --}}
+
     <div class="carousel-item relative float-left w-full">
       <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"
+        src="{{itemData.[1].images.[0].link}}"
         class="block w-full"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center">
         <h5 class="text-xl">{{itemData.[1].name}}</h5>
-        <p>Some representative placeholder content for the second slide.</p>
         <p>{{itemData.[1].description}}</p>
         <p>from the {{itemData.[1].collection.name}} collection.</p>
       </div>
     </div>
+
+    {{!-- Carousel item 3  --}}
+
     <div class="carousel-item relative float-left w-full">
       <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
+        src="{{itemData.[2].images.[0].link}}"
         class="block w-full"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center">
         <h5 class="text-xl">{{itemData.[2].name}}</h5>
-        <p>Some representative placeholder content for the second slide.</p>
         <p>{{itemData.[2].description}}</p>
         <p>from the {{itemData.[2].collection.name}} collection.</p>
       </div>
     </div>
+
+    {{!-- Carousel item 4  --}}
+
     <div class="carousel-item relative float-left w-full">
       <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
+        src="{{itemData.[3].images.[0].link}}"
         class="block w-full"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center">
         <h5 class="text-xl">{{itemData.[3].name}}</h5>
-        <p>Some representative placeholder content for the second slide.</p>
         <p>{{itemData.[3].description}}</p>
         <p>from the {{itemData.[3].collection.name}} collection.</p>
       </div>
     </div>
+
+    {{!-- Carousel item 5  --}}
+
     <div class="carousel-item relative float-left w-full">
       <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
+        src="{{itemData.[4].images.[0].link}}"
         class="block w-full"
         alt="..."
       />
       <div class="carousel-caption hidden md:block absolute text-center">
         <h5 class="text-xl">{{itemData.[4].name}}</h5>
-        <p>Some representative placeholder content for the second slide.</p>
         <p>{{itemData.[4].description}}</p>
         <p>from the {{itemData.[4].collection.name}} collection.</p>
       </div>

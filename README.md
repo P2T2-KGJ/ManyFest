@@ -17,36 +17,15 @@ Application utilizes node, express, express-session, aws-sdk, bcrypt, handlebars
 
 ## Installation
 
-Utilizing ManyFest locally will require an ['AWS S3'](https://aws.amazon.com/s3/) account, as S3 is the database utilized by the Multer-S3 dependency for photo storage.
+Running a ManyFest clone will require an ['AWS'](https://aws.amazon.com/) account, as well as access to a MySQL database, while run locally, or via JawsDB while hosted.
 
-Once the .env file has been established with the required info, hosting the application locally as follows:
+A `.env` file is required to host sensitive variable information, such as database name, user, password, and AWS S3 bucket information
 
-Install required dependencies:
+- Install required dependencies via node package manager.
 
-```console
-$ npm i
-```
-Generate the mySQL database:
+- Create the database
 
-```console
-$ mysql -u root -p < db/schema.sql
-```
-
-Utilize available seed data:
-
-```console
-$ npm run seed
-```
-
-  Start the server:
-
-```console
-$ npm start
-```
-
-  View the website at: http://localhost:3001
-
-  Heroku Deployed App: https://manyfestapp.herokuapp.com/
+- Populate with provided seed data, or provide your own.
 
 ## Usage
 
