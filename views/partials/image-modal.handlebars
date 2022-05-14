@@ -12,7 +12,7 @@
             class="relative flex flex-col text-current bg-white border-none rounded-md shadow-lg outline-none pointer-events-auto modal-content bg-clip-padding"
         >
             <div
-                class="flex items-center justify-between flex-grow-0 flex-shrink-0 p-4 border-b border-gray-200 modal-header rounded-t-md"
+                class="flex items-center justify-between flex-grow-0 p-4 border-b border-gray-200 flex-shrink-1 modal-header rounded-t-md"
             >
                 <h5 class="text-xl font-bold leading-normal text-gray-800">
                     {{name}}
@@ -24,7 +24,7 @@
                     aria-label="Close"
                 ><i class="fa-solid fa-x"></i></button>
             </div>
-            <div class="relative flex justify-center p-4 modal-body">
+            <div class="relative flex justify-center max-h-[75vh] p-4 modal-body">
                 {{#if images}}
                     {{#each images as |image|}}
                         <img
