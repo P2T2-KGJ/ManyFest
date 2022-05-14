@@ -2,12 +2,12 @@ const router = require("express").Router();
 const path = require("path");
 
 const { Collection, Item, User, Image } = require("../models");
-const { withAuth, userAuth } = require("../utils/auth");
+const { withAuth } = require("../utils/auth");
 
 // homepage
 router.get("/", async (req, res) => {
     try {
-        const recentItemData = await Item.findAll({
+        const itemData = await Item.findAll({
             include: [{
                 model: Collection,
                     where: {
@@ -23,23 +23,24 @@ router.get("/", async (req, res) => {
             limit: 5,
         });
 
-        const itemData = recentItemData.map((item) =>
-            item.get({ plain: true })
-        );
-
         if (!itemData) {
             // what do we do if nothing satisfies this condition?
             res.render("homepage");
         } else {
+            const items = itemData.map((item) =>
+            item.get({ plain: true })
+        );
+            console.log(items);
+            
             res.render("homepage", {
-                itemData,
+                items,
                 loggedIn: req.session.loggedIn,
                 userId: req.session.userId,
                 userName: req.session.userName,
             });
         }
     } catch (err) {
-        res.status(404).sendFile(path.join(__dirname, "../public", "404.html"));
+        res.status(404);
         return;
     }
 });
