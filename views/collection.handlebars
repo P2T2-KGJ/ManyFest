@@ -4,36 +4,36 @@
                         <h2 class="mt-0 mb-2 text-4xl font-medium leading-tight ">{{collection.name}}</h2>
                         <span class="hidden" id="collectionId">{{collection.id}}</span>
                         <p class="mb-4">{{collection.description}}</p>
-                        <div>
+                        <div class="flex flex-wrap justify-center sm:justify-start">
                                 <button type="button"
-                                        class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                class="inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out ml-1 mb-2"
+                                        
                                         data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
                                 <button type="button"
-                                        class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out ml-8"
+                                        class="sm:inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out ml-1 mb-2"
+                                        
                                         data-bs-toggle="modal" data-bs-target="#editCollectionModal">Edit
                                         collection</button>
                                 <button type="button"
-                                        class="inline-block px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-lg transition duration-150 ease-in-out ml-8"
+                                        class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out ml-1 mb-2"
                                         data-bs-toggle="modal" data-bs-target="#deleteCollectionModal">Delete
                                         collection</button>
                         </div>
                 </div>
                 {{!-- <div class="flex flex-col col-6"> --}}
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
+
                         {{> item-add}}
                         {{> collection-edit}}
                         {{> collection-delete}}
-                </div>
+                {{!-- </div> --}}
         </section>
-        <section class="mx-auto mb-4">
-                <div class="container grid grid-cols-1 gap-4 p-6 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
-                        {{!-- <div class="flex flex-wrap"> --}}
-                                {{#if collection.items}}
-                                {{#each collection.items as |item|}}
-                                {{> item-card}}
-                                {{/each}}
-                                {{/if}}
-                        {{!-- </div> --}}
+        <section class="grid mx-auto mb-4">
+                <div class="flex flex-wrap justify-center w-full">
+                        {{#if collection.items}}
+                        {{#each collection.items as |item|}}
+                        {{> item-card}}
+                        {{/each}}
+                        {{/if}}
                 </div>
         </section>
 </div>
