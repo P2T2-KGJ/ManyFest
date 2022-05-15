@@ -1,4 +1,4 @@
-const userWarning = document.querySelector("#user-warning");
+const loginWarning = document.querySelector("#loginwarning");
 
 const login = async (event) => {
     event.preventDefault();
@@ -7,7 +7,7 @@ const login = async (event) => {
     const password = document.getElementById("password").value.trim();
 
     if (!email || !password) {
-        userWarning.textContent = "Please pass a username and password";
+        loginWarning.textContent = "Please pass a username and password";
         return;
     }
 
@@ -19,7 +19,7 @@ const login = async (event) => {
         });
         console.log(response);
         if (!response.ok) {
-            userWarning.textContent = "Username and/or password is incorrect.";
+            loginWarning.textContent = "Username and/or password is incorrect.";
         } else {
         window.location.replace(`/dashboard`)}
     } catch (err) {

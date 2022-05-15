@@ -4,10 +4,10 @@ const fieldWarning = document.querySelector("#fields-warning");
 
 const signupFormHandler = async (event) => {
     event.preventDefault();
-    userWarning.textContent = ""
-    passwordWarning.textContent = ""
-    fieldWarning.textContent = ""
-    
+    userWarning.textContent = "";
+    passwordWarning.textContent = "";
+    fieldWarning.textContent = "";
+
     const username = document.querySelector("#signup-name").value.trim();
     const email = document.querySelector("#signup-email").value.trim();
     const password = document.querySelector("#signup-password").value.trim();
@@ -25,7 +25,7 @@ const signupFormHandler = async (event) => {
     if (password.length < 8) {
         passwordWarning.textContent =
             "Password must be at least 8 characters long";
-            return;
+        return;
     }
 
     // make sure password matches
